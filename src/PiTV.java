@@ -1,63 +1,67 @@
-import Utils.Constants.RobotGIFs.Gifs;
+import Utils.Constants.RobotGIFsConstants.Gifs;
+import static Utils.Constants.ScreenConstants.*;
+import static java.awt.Color.WHITE;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class PiTV extends JFrame implements KeyListener {
-
     private final JLabel gifLabel;
     private ImageIcon currentIcon = Gifs.ROBOT_GIF.getCurrentIcon();
 
     public PiTV() {
         // Set up the JFrame
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);  // Remove window decorations
-        setExtendedState(JFrame.MAXIMIZED_BOTH);  // Set to full-screen
-        setLayout(new BorderLayout());
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setUndecorated(true);  // Remove window decorations
+        this.setExtendedState(MAXIMIZED_BOTH);  // Set to full-screen
+        this.setLayout(new BorderLayout());
 
         // Create and add the JLabel
-        gifLabel = new JLabel(currentIcon);
-        gifLabel.setSize(getSize()); // Set the size of the JLabel to the size of the screen
-        add(gifLabel, BorderLayout.CENTER);
+        this.gifLabel = new JLabel(currentIcon);
+        this.gifLabel.setSize(this.getSize()); // Set the size of the JLabel to the size of the screen
+        this.gifLabel.setOpaque(true);
+        this.gifLabel.setForeground(WHITE);  // Set the background to white
+        this.add(gifLabel, BorderLayout.CENTER);
 
         // Add KeyListener to the JFrame
-        addKeyListener(this);
-        setFocusable(true);
-        setFocusTraversalKeysEnabled(false);
+        this.addKeyListener(this);
+        this.setFocusable(true);
+        this.setFocusTraversalKeysEnabled(false);
 
         // Show the JFrame
-        setVisible(true);
+        this.setVisible(true);
     }
 
     private void changeToFirstGif() {
         // Change to the robot GIF when the 'I' key is pressed
-        currentIcon = Gifs.ROBOT_GIF.getCurrentIcon();
-        gifLabel.setIcon(currentIcon);
+        this.currentIcon = Gifs.ROBOT_GIF.getCurrentIcon();
+        this.gifLabel.setIcon(currentIcon);
     }
 
     private void changeToSecondGif() {
         // Change to the second GIF when the 'U' key is pressed
-        currentIcon = Gifs.SWERVE_GIF.getCurrentIcon();
-        gifLabel.setIcon(currentIcon);
+        this.currentIcon = Gifs.SWERVE_GIF.getCurrentIcon();
+        this.gifLabel.setIcon(currentIcon);
     }
 
     private void changeToThirdGif() {
         // Change to the third GIF when the 'Y' key is pressed
-        currentIcon = Gifs.SHOT_GIF.getCurrentIcon();
-        gifLabel.setIcon(currentIcon);
+       this.currentIcon = Gifs.SHOT_GIF.getCurrentIcon();
+        this.gifLabel.setIcon(currentIcon);
     }
 
     private void changeToForthGif() {
         // Change to the third GIF when the 'T' key is pressed
-        currentIcon = Gifs.ARM_GIF.getCurrentIcon();
-        gifLabel.setIcon(currentIcon);
+        this.currentIcon = Gifs.ARM_GIF.getCurrentIcon();
+        this.gifLabel.setIcon(currentIcon);
     }
 
     private void changeToFifthGif() {
         // Change to the third GIF when the 'R' key is pressed
-        currentIcon = Gifs.SENSORS_GIF.getCurrentIcon();
-        gifLabel.setIcon(currentIcon);
+        this.currentIcon = Gifs.SENSORS_GIF.getCurrentIcon();
+        this.gifLabel.setIcon(currentIcon);
     }
 
     @Override
@@ -65,19 +69,19 @@ public class PiTV extends JFrame implements KeyListener {
         // Call the corresponding method based on the pressed key
         switch (e.getKeyCode()) {
             case KeyEvent.VK_I:
-                changeToFirstGif();
+                this.changeToFirstGif();
                 break;
             case KeyEvent.VK_U:
-                changeToSecondGif();
+                this.changeToSecondGif();
                 break;
             case KeyEvent.VK_Y:
-                changeToThirdGif();
+                this.changeToThirdGif();
                 break;
             case KeyEvent.VK_T:
-                changeToFifthGif();
+                this.changeToFifthGif();
                 break;
             case KeyEvent.VK_R:
-                changeToForthGif();
+                this.changeToForthGif();
                 break;
         }
     }
