@@ -1,3 +1,4 @@
+import Utils.Constants.RobotGIFs.Gifs;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -5,8 +6,8 @@ import java.awt.event.KeyListener;
 
 public class PiTV extends JFrame implements KeyListener {
 
-    private JLabel gifLabel;
-    private ImageIcon[] gifs;
+    private final JLabel gifLabel;
+    private ImageIcon currentIcon = Gifs.ROBOT_GIF.getCurrentIcon();
 
     public PiTV() {
         // Set up the JFrame
@@ -15,15 +16,8 @@ public class PiTV extends JFrame implements KeyListener {
         setExtendedState(JFrame.MAXIMIZED_BOTH);  // Set to full-screen
         setLayout(new BorderLayout());
 
-        gifs = new ImageIcon[5];
-        gifs[0] = new ImageIcon(String.valueOf(Constants.RobotGIFs.GifsConstants.ROBOT_GIF));
-        gifs[1] = new ImageIcon(String.valueOf(Constants.RobotGIFs.GifsConstants.SWERVE_GIF));
-        gifs[2] = new ImageIcon(String.valueOf(Constants.RobotGIFs.GifsConstants.ROBOT_GIF));
-        gifs[3] = new ImageIcon(String.valueOf(Constants.RobotGIFs.GifsConstants.ROBOT_GIF));
-        gifs[4] = new ImageIcon(String.valueOf(Constants.RobotGIFs.GifsConstants.ROBOT_GIF));
-
         // Create and add the JLabel
-        gifLabel = new JLabel(String.valueOf(Constants.RobotGIFs.GifsConstants.ROBOT_GIF));
+        gifLabel = new JLabel(currentIcon);
         gifLabel.setSize(getSize()); // Set the size of the JLabel to the size of the screen
         add(gifLabel, BorderLayout.CENTER);
 
@@ -38,27 +32,32 @@ public class PiTV extends JFrame implements KeyListener {
 
     private void changeToFirstGif() {
         // Change to the robot GIF when the 'I' key is pressed
-        gifLabel = new JLabel(String.valueOf(Constants.RobotGIFs.GifsConstants.ROBOT_GIF));
+        currentIcon = Gifs.ROBOT_GIF.getCurrentIcon();
+        gifLabel.setIcon(currentIcon);
     }
 
     private void changeToSecondGif() {
         // Change to the second GIF when the 'U' key is pressed
-        gifLabel = new JLabel(String.valueOf(Constants.RobotGIFs.GifsConstants.SWERVE_GIF));
+        currentIcon = Gifs.SWERVE_GIF.getCurrentIcon();
+        gifLabel.setIcon(currentIcon);
     }
 
     private void changeToThirdGif() {
         // Change to the third GIF when the 'Y' key is pressed
-        gifLabel = new JLabel(String.valueOf(Constants.RobotGIFs.GifsConstants.SHOT_GIF));
+        currentIcon = Gifs.SHOT_GIF.getCurrentIcon();
+        gifLabel.setIcon(currentIcon);
     }
 
     private void changeToForthGif() {
         // Change to the third GIF when the 'T' key is pressed
-        gifLabel = new JLabel(String.valueOf(Constants.RobotGIFs.GifsConstants.ARM_GIF));
+        currentIcon = Gifs.ARM_GIF.getCurrentIcon();
+        gifLabel.setIcon(currentIcon);
     }
 
     private void changeToFifthGif() {
         // Change to the third GIF when the 'R' key is pressed
-        gifLabel = new JLabel(String.valueOf(Constants.RobotGIFs.GifsConstants.SENSORS_GIF));
+        currentIcon = Gifs.SENSORS_GIF.getCurrentIcon();
+        gifLabel.setIcon(currentIcon);
     }
 
     @Override
