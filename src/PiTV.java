@@ -1,29 +1,32 @@
-import Utils.Constants.RobotGIFsConstants.Gifs;
-import static Utils.Constants.ScreenConstants.*;
-import static java.awt.Color.WHITE;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Objects;
 
 public class PiTV extends JFrame implements KeyListener {
     private final JLabel gifLabel;
-    private ImageIcon currentIcon = Gifs.ROBOT_GIF.getCurrentIcon();
+    private ImageIcon currentIcon;
 
     public PiTV() {
         // Set up the JFrame
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setUndecorated(true);  // Remove window decorations
         this.setExtendedState(MAXIMIZED_BOTH);  // Set to full-screen
+        this.getContentPane().setBackground(Color.WHITE); // Set background color of the JFrame
         this.setLayout(new BorderLayout());
 
+        // Create a JPanel with FlowLayout to center the JLabel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panel.setOpaque(false); // Make the JPanel transparent
+        this.add(panel, BorderLayout.CENTER);
+
         // Create and add the JLabel
-        this.gifLabel = new JLabel(currentIcon);
-        this.gifLabel.setSize(this.getSize()); // Set the size of the JLabel to the size of the screen
-        this.gifLabel.setOpaque(true);
-        this.gifLabel.setForeground(WHITE);  // Set the background to white
-        this.add(gifLabel, BorderLayout.CENTER);
+        this.gifLabel = new JLabel();
+        panel.add(gifLabel);
+
+        // Load the initial GIF
+        this.changeToFirstGif();
 
         // Add KeyListener to the JFrame
         this.addKeyListener(this);
@@ -36,31 +39,31 @@ public class PiTV extends JFrame implements KeyListener {
 
     private void changeToFirstGif() {
         // Change to the robot GIF when the 'I' key is pressed
-        this.currentIcon = Gifs.ROBOT_GIF.getCurrentIcon();
+        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/robot.gif")));
         this.gifLabel.setIcon(currentIcon);
     }
 
     private void changeToSecondGif() {
         // Change to the second GIF when the 'U' key is pressed
-        this.currentIcon = Gifs.SWERVE_GIF.getCurrentIcon();
+        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/swerve.gif")));
         this.gifLabel.setIcon(currentIcon);
     }
 
     private void changeToThirdGif() {
         // Change to the third GIF when the 'Y' key is pressed
-       this.currentIcon = Gifs.SHOT_GIF.getCurrentIcon();
+        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/shot.gif")));
         this.gifLabel.setIcon(currentIcon);
     }
 
     private void changeToForthGif() {
         // Change to the third GIF when the 'T' key is pressed
-        this.currentIcon = Gifs.ARM_GIF.getCurrentIcon();
+        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/arm.gif")));
         this.gifLabel.setIcon(currentIcon);
     }
 
     private void changeToFifthGif() {
         // Change to the third GIF when the 'R' key is pressed
-        this.currentIcon = Gifs.SENSORS_GIF.getCurrentIcon();
+        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/sensors.gif")));
         this.gifLabel.setIcon(currentIcon);
     }
 
@@ -92,4 +95,8 @@ public class PiTV extends JFrame implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {}
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(PiTV::new);
+    }
 }
