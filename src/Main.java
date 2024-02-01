@@ -7,6 +7,7 @@ import javax.swing.*;
  * press R to change gif
  * PRESS D TO BE ON THE DEV MODE
  * PRESS A TO BE ON THE AUTO SWITCH MODE
+ * PRESS S TO BE ON THE TIME PASSED MODE
  */
 public class Main {
     public static void main(String[] args) {

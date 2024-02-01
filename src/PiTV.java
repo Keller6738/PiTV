@@ -12,7 +12,18 @@ public class PiTV extends JFrame implements KeyListener {
     private ImageIcon currentIcon;
     private boolean devMode = false;
     private boolean autoSwitchEnabled = false;
+    private boolean timingMode = false;
+    private long lastSwitchTime = 0;
     private static final int AUTO_SWITCH_INTERVAL = 10000; // 10 seconds in milliseconds
+
+    // Array to store GIF file names
+    private static final String[] GIF_FILE_NAMES = {
+            "robot.gif",
+            "swerve.gif",
+            "shot.gif",
+            "arm.gif",
+            "sensors.gif"
+    };
 
     public PiTV() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -28,49 +39,33 @@ public class PiTV extends JFrame implements KeyListener {
         this.gifLabel = new JLabel();
         panel.add(gifLabel);
 
-        this.changeToFirstGif();
+        this.changeToGif(0); // Initially, set to the first GIF
 
         this.addKeyListener(this);
         this.setFocusable(true);
         this.setFocusTraversalKeysEnabled(false);
 
         this.setVisible(true);
+
+        // Start auto-switching mode
+        startAutoSwitchTimer();
     }
 
-    private void changeToFirstGif() {
-        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/robot.gif")));
-        this.gifLabel.setIcon(currentIcon);
-        logGifChange();
-    }
+    private void changeToGif(int index) {
+        long currentTime = System.currentTimeMillis();
+        if (timingMode && lastSwitchTime != 0) {
+            System.out.println("Time between last switch: " + (currentTime - lastSwitchTime) + " milliseconds");
+        }
+        lastSwitchTime = currentTime;
 
-    private void changeToSecondGif() {
-        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/swerve.gif")));
-        this.gifLabel.setIcon(currentIcon);
-        logGifChange();
-    }
-
-    private void changeToThirdGif() {
-        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/shot.gif")));
-        this.gifLabel.setIcon(currentIcon);
-        logGifChange();
-    }
-
-    private void changeToForthGif() {
-        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/arm.gif")));
-        this.gifLabel.setIcon(currentIcon);
-        logGifChange();
-    }
-
-    private void changeToFifthGif() {
-        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/sensors.gif")));
+        this.currentIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("GIFs/" + GIF_FILE_NAMES[index])));
         this.gifLabel.setIcon(currentIcon);
         logGifChange();
     }
 
     private void logGifChange() {
         if (devMode) {
-            String filename = currentIcon.getDescription();
-            filename = filename.substring(filename.lastIndexOf('/') + 1); // Extract filename from URL
+            String filename = GIF_FILE_NAMES[getCurrentIndex()];
             System.out.println("GIF changed: " + filename);
         }
     }
@@ -95,6 +90,15 @@ public class PiTV extends JFrame implements KeyListener {
         }
     }
 
+    private void toggleTimingMode() {
+        timingMode = !timingMode;
+        if (timingMode) {
+            System.out.println("Timing mode is ON.");
+        } else {
+            System.out.println("Timing mode is OFF.");
+        }
+    }
+
     private void startAutoSwitchTimer() {
         Timer autoSwitchTimer = new Timer();
         autoSwitchTimer.schedule(new TimerTask() {
@@ -108,48 +112,40 @@ public class PiTV extends JFrame implements KeyListener {
     }
 
     private void stopAutoSwitchTimer() {
-        // Implement if needed
     }
 
     private void switchRandomGif() {
         Random random = new Random();
-        int randomIndex = random.nextInt(5); // Generate a random index between 0 and 4
-        switch (randomIndex) {
-            case 0:
-                changeToFirstGif();
-                break;
-            case 1:
-                changeToSecondGif();
-                break;
-            case 2:
-                changeToThirdGif();
-                break;
-            case 3:
-                changeToForthGif();
-                break;
-            case 4:
-                changeToFifthGif();
-                break;
+        int randomIndex = random.nextInt(GIF_FILE_NAMES.length);
+        changeToGif(randomIndex);
+    }
+
+    private int getCurrentIndex() {
+        for (int i = 0; i < GIF_FILE_NAMES.length; i++) {
+            if (currentIcon.getDescription().endsWith(GIF_FILE_NAMES[i])) {
+                return i;
+            }
         }
+        return -1;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_I:
-                this.changeToFirstGif();
+                this.changeToGif(0);
                 break;
             case KeyEvent.VK_U:
-                this.changeToSecondGif();
+                this.changeToGif(1);
                 break;
             case KeyEvent.VK_Y:
-                this.changeToThirdGif();
+                this.changeToGif(2);
                 break;
             case KeyEvent.VK_T:
-                this.changeToFifthGif();
+                this.changeToGif(3);
                 break;
             case KeyEvent.VK_R:
-                this.changeToForthGif();
+                this.changeToGif(4);
                 break;
             case KeyEvent.VK_D:
                 toggleDevMode();
@@ -157,15 +153,15 @@ public class PiTV extends JFrame implements KeyListener {
             case KeyEvent.VK_A:
                 toggleAutoSwitch();
                 break;
+            case KeyEvent.VK_S:
+                toggleTimingMode();
+                break;
         }
     }
+    @Override
+    public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {}
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
-
-}
