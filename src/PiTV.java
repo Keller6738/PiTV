@@ -16,7 +16,6 @@ public class PiTV extends JFrame implements KeyListener {
     private long lastSwitchTime = 0;
     private static final int AUTO_SWITCH_INTERVAL = 10000; // 10 seconds in milliseconds
 
-    // Array to store GIF file names
     private static final String[] GIF_FILE_NAMES = {
             "robot.gif",
             "swerve.gif",
@@ -39,7 +38,7 @@ public class PiTV extends JFrame implements KeyListener {
         this.gifLabel = new JLabel();
         panel.add(gifLabel);
 
-        this.changeToGif(0); // Initially, set to the first GIF
+        this.changeToGif(0);
 
         this.addKeyListener(this);
         this.setFocusable(true);
@@ -47,7 +46,6 @@ public class PiTV extends JFrame implements KeyListener {
 
         this.setVisible(true);
 
-        // Start auto-switching mode
         startAutoSwitchTimer();
     }
 
