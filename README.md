@@ -1,5 +1,5 @@
 # PiTV | 2024 📺
-### *By Korngut,Keller6738 and I-No-oNe 🚀*
+### *By Korngut, Keller6738 and I-No-oNe 🚀*
 
 ## What is PiTV ❔
 > PiTV is a java program to display [**@Excalibur**](https://github.com/ExcaliburFRC) CAD in our pit station on our ***FRC competition.***
