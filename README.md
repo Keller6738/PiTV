@@ -22,5 +22,6 @@ How to use?
  - PRESS S TO BE ON THE TIME SWITCH MODE
  - PRESS D TO BE ON THE DEV MODE
  - PRESS A TO BE ON THE AUTO SWITCH MODE
+ - PRESS F4 TO STOP THE PROGRAM
  ```
 ### Good luck to everyone in their competitions🤖
