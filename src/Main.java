@@ -1,13 +1,13 @@
 import javax.swing.*;
 /**
- * press U to change gif
- * press Y to change gif
- * press I to change gif
- * press T to change gif
- * PRESS S TO BE ON THE TIME PASSED MODE
- * press R to change gif
- * PRESS D TO BE ON THE DEV MODE
- * PRESS A TO BE ON THE AUTO SWITCH MODE
+ * press 1 to change gif
+ * press 2 to change gif
+ * press 3 to change gif
+ * press 4 to change gif
+ * press 5 to change gif
+ * PRESS S TO TURN ON THE TIMING MODE
+ * PRESS D TO TURN ON THE DEV MODE
+ * PRESS A TO TURN ON THE AUTO SWITCH MODE
  * PRESS F4 TO STOP THE PROGRAM
  */
 public class Main {

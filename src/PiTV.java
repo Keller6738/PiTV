@@ -130,17 +130,18 @@ public class PiTV extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_I -> this.changeToGif(0);
-            case KeyEvent.VK_U -> this.changeToGif(1);
-            case KeyEvent.VK_Y -> this.changeToGif(2);
-            case KeyEvent.VK_T -> this.changeToGif(3);
-            case KeyEvent.VK_R -> this.changeToGif(4);
+            case KeyEvent.VK_1 -> this.changeToGif(0);
+            case KeyEvent.VK_2 -> this.changeToGif(1);
+            case KeyEvent.VK_3 -> this.changeToGif(2);
+            case KeyEvent.VK_4 -> this.changeToGif(3);
+            case KeyEvent.VK_5 -> this.changeToGif(4);
             case KeyEvent.VK_D -> toggleDevMode();
             case KeyEvent.VK_A -> toggleAutoSwitch();
             case KeyEvent.VK_S -> toggleTimingMode();
             case KeyEvent.VK_F4 -> System.exit(0);
         }
     }
+
     @Override
     public void keyTyped(KeyEvent e) {}
 

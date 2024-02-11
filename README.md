@@ -14,14 +14,14 @@
 > - [***Keller6738***](https://discord.com/users/1120983179281567774)
 ```yml
 How to use?
- - press U to change gif 1
- - press Y to change gif 2
- - press I to change gif 3 
- - press T to change gif 4
- - press R to change gif 5
- - PRESS S TO BE ON THE TIME SWITCH MODE
- - PRESS D TO BE ON THE DEV MODE
- - PRESS A TO BE ON THE AUTO SWITCH MODE
- - PRESS F4 TO STOP THE PROGRAM
+- press 1 to change gif
+- press 2 to change gif
+- press 3 to change gif
+- press 4 to change gif
+- press 5 to change gif
+- PRESS S TO TURN ON THE TIMING MODE
+- PRESS D TO TURN ON THE DEV MODE
+- PRESS A TO TURN ON THE AUTO SWITCH MODE
+- PRESS F4 TO STOP THE PROGRAM
  ```
 ### Good luck to everyone in their competitions🤖
