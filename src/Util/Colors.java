@@ -1,3 +1,5 @@
+package Util;
+
 import java.awt.*;
 
 public enum Colors {
@@ -6,7 +8,5 @@ public enum Colors {
 
     public Color color;
 
-    private Colors(Color color) {
-
-    }
+    Colors(Color color) {}
 }
