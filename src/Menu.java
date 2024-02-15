@@ -1,7 +1,6 @@
-package Util;
-
 import javax.swing.*;
 import java.awt.*;
+
 
 public class Menu extends JPanel {
     private MyButton[] buttons;

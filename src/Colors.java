@@ -1,5 +1,3 @@
-package Util;
-
 import java.awt.*;
 
 public enum Colors {

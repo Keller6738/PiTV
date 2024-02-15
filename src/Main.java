@@ -12,12 +12,13 @@ import javax.swing.*;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("The code has been started!");
+        /*System.out.println("The code has been started!");
         System.out.println("Made by Noam, Ori, and Itay from Excalibur #6738.");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("The code has been stopped.");
             System.out.println("Made by Noam, Ori, and Itay from Excalibur #6738.");
         }));
-        SwingUtilities.invokeLater(mainWindow::new);
+        SwingUtilities.invokeLater(mainWindow::new);*/
+        new mainWindow();
     }
 }

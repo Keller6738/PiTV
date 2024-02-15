@@ -1,37 +1,36 @@
-import Manues.StuffMenu;
-import Util.Buttons;
-import Util.Menu;
-import Util.MyButton;
-
 import javax.swing.*;
 import java.awt.*;
 
-import static java.awt.Color.WHITE;
-
 public class mainWindow extends JFrame {
+    private final JPanel panel;
     private final Menu stuffMenu;
-    private final Menu mechanicsMenu;
-    private final Menu electronicsMenu;
-    private final Menu programmingMenu;
-    private final Menu communityMenu;
-
+//    private final mainWindow mainWindow;
+    //    private final Menu mechanicsMenu;
+//    private final Menu electronicsMenu;
+//    private final Menu programmingMenu;
+//    private final Menu communityMenu;
 
     public mainWindow() {
+        this.panel = new JPanel(null);
+
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setUndecorated(true);
-        this.setExtendedState(MAXIMIZED_BOTH);
-        this.getContentPane().setBackground(WHITE);
-        this.setLayout(new BorderLayout());
+//        this.setUndecorated(true);
+//        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setSize(1000, 1000);
+        this.panel.setSize(this.getSize());
+        this.panel.setBackground(Colors.BLUE.color);
+        this.panel.setLayout(new BorderLayout());
 
-        this.stuffMenu = new Menu(new Dimension(1680, 50), new MyButton[]{
 
-        });
 
-        this.setFocusable(true);
-        this.setFocusTraversalKeysEnabled(false);
+        this.stuffMenu = new Menu(new Dimension(1680, 50));
 
-        new StuffMenu();
+        this.panel.setFocusable(true);
+        this.panel.setFocusTraversalKeysEnabled(false);
+
+        this.add(panel);
 
         this.setVisible(true);
+        this.panel.setVisible(true);
     }
 }
