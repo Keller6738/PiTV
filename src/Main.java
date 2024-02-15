@@ -18,6 +18,6 @@ public class Main {
             System.out.println("The code has been stopped.");
             System.out.println("Made by Noam, Ori, and Itay from Excalibur #6738.");
         }));
-        SwingUtilities.invokeLater(PiTV::new);
+        SwingUtilities.invokeLater(mainWindow::new);
     }
 }
