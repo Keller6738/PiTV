@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import static java.awt.Font.PLAIN;
 
 public class MyButton extends JPanel implements MouseListener {
-    private JLabel textLabel;
+    private final JLabel textLabel;
     private final Runnable run;
     private final String text;
 

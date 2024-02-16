@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class Menu extends JPanel {
+public class Menu extends JPanel implements Runnable {
     private MyButton[] buttons;
 
     public Menu(Dimension size, MyButton... buttons) {
@@ -15,5 +15,10 @@ public class Menu extends JPanel {
         }
 
         this.setSize(size);
+    }
+
+    @Override
+    public void run() {
+        this.setVisible(true);
     }
 }

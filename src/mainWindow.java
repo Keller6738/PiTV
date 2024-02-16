@@ -4,11 +4,10 @@ import java.awt.*;
 public class mainWindow extends JFrame {
     private final JPanel panel;
     private final Menu stuffMenu;
-//    private final mainWindow mainWindow;
-    //    private final Menu mechanicsMenu;
-//    private final Menu electronicsMenu;
-//    private final Menu programmingMenu;
-//    private final Menu communityMenu;
+    private final Menu mechanicsMenu;
+    private final Menu electronicsMenu;
+    private final Menu programmingMenu;
+    private final Menu communityMenu;
 
     public mainWindow() {
         this.panel = new JPanel(null);
@@ -21,19 +20,52 @@ public class mainWindow extends JFrame {
         this.panel.setBackground(Colors.BLUE.color);
         this.panel.setLayout(new BorderLayout());
 
+        this.mechanicsMenu = new Menu(new Dimension(50, 1050),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50))
+        );
+
+        this.electronicsMenu = new Menu(new Dimension(50, 1050),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50))
+        );
+
+        this.programmingMenu = new Menu(new Dimension(50, 1050),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50))
+        );
+
+        this.communityMenu = new Menu(new Dimension(50, 1050),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50)),
+                new MyButton(() -> {}, "", new Dimension(200, 50))
+        );
 
         this.stuffMenu = new Menu(new Dimension(1680, 50),
-                new MyButton(() -> {}, "Mechanics", new Dimension(300, 50)),
-                new MyButton(()-> {}, "Electronics", new Dimension(300, 50)),
-                new MyButton(()->{}, "Programming", new Dimension(300, 50)),
-                new MyButton(()->{}, "Community", new Dimension(300, 50))
+                new MyButton(mechanicsMenu, "Mechanics", new Dimension(200, 50)),
+                new MyButton(electronicsMenu, "Electronics", new Dimension(200, 50)),
+                new MyButton(programmingMenu, "Programming", new Dimension(200, 50)),
+                new MyButton(communityMenu, "Community", new Dimension(200, 50))
         );
+
+        this.stuffMenu.setLocation(0, 950);
 
         this.panel.setFocusable(true);
         this.panel.setFocusTraversalKeysEnabled(false);
 
         this.add(panel);
-        this.add(stuffMenu);
+        this.panel.add(stuffMenu);
 
         this.setVisible(true);
 //        this.panel.setVisible(true);
