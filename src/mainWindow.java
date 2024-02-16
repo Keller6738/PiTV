@@ -22,15 +22,20 @@ public class mainWindow extends JFrame {
         this.panel.setLayout(new BorderLayout());
 
 
-
-        this.stuffMenu = new Menu(new Dimension(1680, 50));
+        this.stuffMenu = new Menu(new Dimension(1680, 50),
+                new MyButton(() -> {}, "Mechanics", new Dimension(300, 50)),
+                new MyButton(()-> {}, "Electronics", new Dimension(300, 50)),
+                new MyButton(()->{}, "Programming", new Dimension(300, 50)),
+                new MyButton(()->{}, "Community", new Dimension(300, 50))
+        );
 
         this.panel.setFocusable(true);
         this.panel.setFocusTraversalKeysEnabled(false);
 
         this.add(panel);
+        this.add(stuffMenu);
 
         this.setVisible(true);
-        this.panel.setVisible(true);
+//        this.panel.setVisible(true);
     }
 }
