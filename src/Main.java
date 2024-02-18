@@ -19,6 +19,7 @@ public class Main {
             System.out.println("Made by Noam, Ori, and Itay from Excalibur #6738.");
         }));
         SwingUtilities.invokeLater(mainWindow::new);*/
-        new mainWindow();
+        mainWindow mainWindow = new mainWindow();
+        mainWindow.setVisible(true);
     }
 }

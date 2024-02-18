@@ -6,5 +6,7 @@ public enum Colors {
 
     public Color color;
 
-    Colors(Color color) {}
+    Colors(Color color) {
+        this.color = color;
+    }
 }
