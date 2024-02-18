@@ -17,6 +17,5 @@ public class Menu extends JPanel {
         }
 
         this.setPreferredSize(size);
-
     }
 }
