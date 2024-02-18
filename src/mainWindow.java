@@ -49,10 +49,7 @@ public class mainWindow extends JFrame {
         );
 
         this.programmingMenu = new Menu(DEPUTY_MENU_WIDTH, 600, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y,
-                new MyButton(() -> {},
-
-
-                        "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y),
+                new MyButton(() -> {}, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y),
                 new MyButton(() -> {}, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y),
                 new MyButton(() -> {}, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y),
                 new MyButton(() -> {}, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y),
@@ -67,11 +64,11 @@ public class mainWindow extends JFrame {
                 new MyButton(() -> {}, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y)
         );
 
-        this.stuffMenu = new Menu(420, 70, 550, 10,
-                new MyButton(() -> this.add(mechanicsMenu), "Mechanics", 100, 50, 555, 10),  
-                new MyButton(() -> this.add(electronicsMenu), "Electronics", 100, 50, 660, 10),
-                new MyButton(() -> this.add(programmingMenu), "Programming", 100, 50, 765, 10),
-                new MyButton(() -> this.add(communityMenu), "Community", 100, 50, 870, 10)
+        this.stuffMenu = new Menu(420, 100, 550, 10,
+                new MyButton(() -> this.add(mechanicsMenu), "Mechanics", 100, 80, 555, 20),
+                new MyButton(() -> this.add(electronicsMenu), "Electronics", 100, 80, 660, 20),
+                new MyButton(() -> this.add(programmingMenu), "Programming", 100, 80, 765, 20),
+                new MyButton(() -> this.add(communityMenu), "Community", 100, 80, 870, 20)
         );
 
         this.setFocusable(true);
@@ -83,4 +80,6 @@ public class mainWindow extends JFrame {
         this.setVisible(true);
 //        this.panel.setVisible(true);
     }
+
+//    https://chat.openai.com/share/36e1b1b9-0c41-4acd-87ad-069a1c7bc119
 }
