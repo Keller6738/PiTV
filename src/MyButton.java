@@ -10,7 +10,7 @@ public class MyButton extends JPanel implements MouseListener {
     private final Runnable run;
     private final String text;
 
-    public MyButton(Runnable run, String text, int width, int height, int x, int y) {
+    public MyButton(Runnable run, String text, int width, int height, int x, int y, int textX) {
         this.setLayout(null);
 
         this.textLabel = new JLabel(text);
@@ -20,11 +20,11 @@ public class MyButton extends JPanel implements MouseListener {
 
         this.textLabel.setBackground(Colors.BLUE.color);
 
-        this.textLabel.setFont(new Font("my font", PLAIN, 25));
+        this.textLabel.setFont(new Font("my font", PLAIN, 15));
 
         this.setBackground(Colors.YELLOW.color);
 
-        this.textLabel.setBounds(0, 0, width, height);
+        this.textLabel.setBounds(textX, 0, width, height);
 
         this.add(textLabel);
 
