@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import static java.awt.Font.PLAIN;
+import static java.awt.Font.BOLD;
 
 public class MyButton extends JPanel implements MouseListener {
     private final JLabel textLabel;
@@ -19,8 +19,8 @@ public class MyButton extends JPanel implements MouseListener {
         this.text = text;
 
         this.textLabel.setBackground(Colors.BLUE.color);
-
-        this.textLabel.setFont(new Font("my font", PLAIN, 15));
+        this.textLabel.setFont(new Font("", BOLD, 15));
+        this.textLabel.setForeground(Colors.BLUE.color);
 
         this.setBackground(Colors.YELLOW.color);
 

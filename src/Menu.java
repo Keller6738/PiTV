@@ -25,8 +25,4 @@ public class Menu extends JPanel {
     public void hideOtherMenus(Menu... menus) {
         for (Menu menu : menus)  menu.setVisible(false);
     }
-
-    public void hideOtherWindows(MainWindow... windows) {
-        for (MainWindow window : windows)  window.setVisible(false);
-    }
 }
