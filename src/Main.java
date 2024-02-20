@@ -1,4 +1,3 @@
-import javax.swing.*;
 /**
  * press 1 to change gif
  * press 2 to change gif
@@ -19,7 +18,7 @@ public class Main {
             System.out.println("Made by Noam, Ori, and Itay from Excalibur #6738.");
         }));
         SwingUtilities.invokeLater(mainWindow::new);*/
-        mainWindow mainWindow = new mainWindow();
+        Screen mainWindow = new Screen();
         mainWindow.setVisible(true);
     }
 }

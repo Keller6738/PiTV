@@ -38,6 +38,10 @@ public class MyButton extends JPanel implements MouseListener {
         return textLabel.getText();
     }
 
+    public Runnable getRun() {
+        return run;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         run.run();
