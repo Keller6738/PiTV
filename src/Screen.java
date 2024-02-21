@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static java.awt.Font.BOLD;
+import static java.awt.Image.SCALE_SMOOTH;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.RIGHT;
 
@@ -24,10 +25,17 @@ public class Screen extends JFrame {
 
     private final Window modelingWindow;
     private final Window productionWindow;
-    private final Window swerveWindow;
-    private final Window intakeWindow;
-    private final Window shooterWindow;
-    private final Window climberWindow;
+    private final Window swerveMechanicsWindow;
+    private final Window intakeMechanicsWindow;
+    private final Window shooterMechanicsWindow;
+    private final Window climberMechanicsWindow;
+
+    private final Window swerveElectronicsWindow;
+    private final Window intakeElectronicsWindow;
+    private final Window shooterElectronicsWindow;
+    private final Window climberElectronicsWindow;
+    private final Window wiringElectronicsWindow;
+    private final Window monitoringElectronicsWindow;
 
     private Window currentWindow;
 
@@ -51,7 +59,7 @@ public class Screen extends JFrame {
     private static final int WINDOWS_Y = 120;
 
     public Screen() {
-        ///////////////////////////////////
+        //design panels
         this.excaliburPanel = new JPanel();
         this.excaliburIcon = new ImageIcon("Excalibur.jpg");
         this.excaliburLabel = new JLabel("Excalibur", excaliburIcon, CENTER);
@@ -82,20 +90,18 @@ public class Screen extends JFrame {
         this.ironSwordPanel.add(ironSwordLabel);
         this.ironSwordPanel.setBounds(865, 645, 115, 304);
         this.add(ironSwordPanel);
-        ///////////////////////////////////
 
+        //set frame
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        this.setUndecorated(true);
-//        this.setExtendedState(MAXIMIZED_BOTH);
-        this.setSize(1000, 1000);
-//        this.panel.setSize(this.getSize());
-//        this.setForeground(Colors.BLUE.color);
+        this.setUndecorated(true);
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setBackground(Colors.BLUE.color);
         this.setLayout(null);
 
-        //////////////////////
+        //windows
         this.currentWindow = new Window("", "", 0, 0, 0, 0);
 
+        //mechanics
         modelingWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(modelingWindow);
         this.modelingWindow.setVisible(false);
@@ -104,70 +110,91 @@ public class Screen extends JFrame {
         this.add(productionWindow);
         this.productionWindow.setVisible(false);
 
-        swerveWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.add(swerveWindow);
-        this.swerveWindow.setVisible(false);
+        swerveMechanicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(swerveMechanicsWindow);
+        this.swerveMechanicsWindow.setVisible(false);
 
-        intakeWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.add(intakeWindow);
-        this.intakeWindow.setVisible(false);
+        intakeMechanicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(intakeMechanicsWindow);
+        this.intakeMechanicsWindow.setVisible(false);
 
-        shooterWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.add(shooterWindow);
-        this.shooterWindow.setVisible(false);
+        shooterMechanicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(shooterMechanicsWindow);
+        this.shooterMechanicsWindow.setVisible(false);
 
-        climberWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.add(climberWindow);
-        this.climberWindow.setVisible(false);
+        climberMechanicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(climberMechanicsWindow);
+        this.climberMechanicsWindow.setVisible(false);
 
-        /////////////////////
+        //electronics
+        swerveElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(swerveElectronicsWindow);
+        this.swerveElectronicsWindow.setVisible(false);
+
+        intakeElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(intakeElectronicsWindow);
+        this.intakeElectronicsWindow.setVisible(false);
+
+        shooterElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(shooterElectronicsWindow);
+        this.shooterElectronicsWindow.setVisible(false);
+
+        climberElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(climberElectronicsWindow);
+        this.climberElectronicsWindow.setVisible(false);
+
+        wiringElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(wiringElectronicsWindow);
+        this.wiringElectronicsWindow.setVisible(false);
+
+        monitoringElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(monitoringElectronicsWindow);
+        this.monitoringElectronicsWindow.setVisible(false);
+
+        //menus
         this.currentMenu = new Menu(0, 0, 0, 0, 0, 0);
 
         this.mechanicsMenu = new Menu(DEPUTY_MENU_WIDTH, 522, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
                 new MyButton(() -> {
-                    this.currentWindow.setVisible(false);
-                    this.currentWindow = modelingWindow;
-                    this.currentWindow.setVisible(true);
+                    this.hidePrevAndShowNextWindow(modelingWindow);
                 }, "Modeling", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 127, 19),
                 new MyButton(() -> {
-                    this.currentWindow.setVisible(false);
-                    this.currentWindow = productionWindow;
-                    this.currentWindow.setVisible(true);
+                    this.hidePrevAndShowNextWindow(productionWindow);
                 }, "Production", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 210, 14),
                 new MyButton(() -> {
-                    this.currentWindow.setVisible(false);
-                    this.currentWindow = swerveWindow;
-                    this.currentWindow.setVisible(true);
+                    this.hidePrevAndShowNextWindow(swerveMechanicsWindow);
                 }, "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 293, 25),
                 new MyButton(() -> {
-                    this.currentWindow.setVisible(false);
-                    this.currentWindow = intakeWindow;
-                    this.currentWindow.setVisible(true);
+                    this.hidePrevAndShowNextWindow(intakeMechanicsWindow);
                 }, "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 376, 30),
                 new MyButton(() -> {
-                    this.currentWindow.setVisible(false);
-                    this.currentWindow = shooterWindow;
-                    this.currentWindow.setVisible(true);
+                    this.hidePrevAndShowNextWindow(shooterMechanicsWindow);
                 }, "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 459, 25),
                 new MyButton(() -> {
-                    this.currentWindow.setVisible(false);
-                    this.currentWindow = climberWindow;
-                    this.currentWindow.setVisible(true);
+                    this.hidePrevAndShowNextWindow(climberMechanicsWindow);
                 }, "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 542, 24)
         );
         this.add(mechanicsMenu);
 
         this.electronicsMenu = new Menu(DEPUTY_MENU_WIDTH, 600, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
                 new MyButton(() -> {
-                }, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
+                    this.hidePrevAndShowNextWindow(swerveElectronicsWindow);
+                }, "swerve", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
                 new MyButton(() -> {
-                }, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
+                    this.hidePrevAndShowNextWindow(intakeElectronicsWindow);
+                }, "intake", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
                 new MyButton(() -> {
-                }, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
+                    this.hidePrevAndShowNextWindow(shooterElectronicsWindow);
+                }, "shooter", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
                 new MyButton(() -> {
-                }, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
+                    this.hidePrevAndShowNextWindow(climberElectronicsWindow);
+                }, "climber", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
                 new MyButton(() -> {
-                }, "", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0)
+                    this.hidePrevAndShowNextWindow(wiringElectronicsWindow);
+                }, "wiring", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0),
+                new MyButton(() -> {
+                    this.hidePrevAndShowNextWindow(monitoringElectronicsWindow);
+                }, "monitoring", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, 0)
         );
         this.add(electronicsMenu);
 
@@ -201,24 +228,16 @@ public class Screen extends JFrame {
 
         this.stuffMenu = new Menu(430, 100, 550, 10, 5, 7,
                 new MyButton(() -> {
-                    this.currentMenu.setVisible(false);
-                    this.currentMenu = mechanicsMenu;
-                    this.currentMenu.setVisible(true);
+                    this.hideMenu(this.mechanicsMenu);
                 }, "Mechanics", 100, 80, 557, 20, 14),
                 new MyButton(() -> {
-                    this.currentMenu.setVisible(false);
-                    this.currentMenu = electronicsMenu;
-                    this.currentMenu.setVisible(true);
+                    this.hideMenu(this.electronicsMenu);
                 }, "Electronics", 100, 80, 662, 20, 12),
                 new MyButton(() -> {
-                    this.currentMenu.setVisible(false);
-                    this.currentMenu = programmingMenu;
-                    this.currentMenu.setVisible(true);
+                    this.hideMenu(this.programmingMenu);
                 }, "Programming", "programming.png", 100, 80, 767, 20, 3),
                 new MyButton(() -> {
-                    this.currentMenu.setVisible(false);
-                    this.currentMenu = communityMenu;
-                    this.currentMenu.setVisible(true);
+                    this.hideMenu(this.communityMenu);
                 }, "Community", 100, 80, 872, 20, 9)
         );
         this.add(stuffMenu);
@@ -234,6 +253,31 @@ public class Screen extends JFrame {
 
         this.setVisible(true);
     }
+
+    private void hideMenu(Menu menu) {
+        this.currentMenu.setVisible(false);
+        this.currentWindow.setVisible(false);
+        this.currentMenu = menu;
+        this.currentMenu.setVisible(true);
+    }
+
+    private void hidePrevAndShowNextWindow(Window window) {
+        this.currentWindow.setVisible(false);
+        this.currentWindow = window;
+        this.currentWindow.setVisible(true);
+    }
+
+    private ImageIcon scaleImageIcon(ImageIcon originalIcon, double scaleFactor) {
+        Image originalImage = originalIcon.getImage();
+
+        int newWidth = (int) (originalImage.getWidth(null) * scaleFactor);
+        int newHeight = (int) (originalImage.getHeight(null) * scaleFactor);
+
+        Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, SCALE_SMOOTH);
+
+        return new ImageIcon(scaledImage);
+    }
+
 
 //    private void hideOtherWindowsAndMenus(Menu... menus, Window... windows) {
 //        for (Menu menu : menus)  menu.setVisible(false);
