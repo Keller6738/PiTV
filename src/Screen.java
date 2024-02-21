@@ -67,6 +67,7 @@ public class Screen extends JFrame {
 
         this.excaliburPanel.add(excaliburLabel);
         this.excaliburPanel.setBounds(7, 10, 538, 100);
+        this.add(excaliburPanel);
 
         this.ironSwordPanel = new JPanel();
         this.ironSwordIcon = new ImageIcon("ironSword.jpg");
@@ -80,6 +81,7 @@ public class Screen extends JFrame {
 
         this.ironSwordPanel.add(ironSwordLabel);
         this.ironSwordPanel.setBounds(865, 645, 115, 304);
+        this.add(ironSwordPanel);
         ///////////////////////////////////
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -92,6 +94,8 @@ public class Screen extends JFrame {
         this.setLayout(null);
 
         //////////////////////
+        this.currentWindow = new Window("", "", 0, 0, 0, 0);
+
         modelingWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(modelingWindow);
         this.modelingWindow.setVisible(false);
@@ -117,30 +121,38 @@ public class Screen extends JFrame {
         this.climberWindow.setVisible(false);
 
         /////////////////////
+        this.currentMenu = new Menu(0, 0, 0, 0, 0, 0);
+
         this.mechanicsMenu = new Menu(DEPUTY_MENU_WIDTH, 522, DEPUTY_MENU_BOUNDS_X, DEPUTY_MENU_BOUNDS_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
                 new MyButton(() -> {
-                    this.modelingWindow.setVisible(true);
-                    this.modelingWindow.hideOtherWindows();
+                    this.currentWindow.setVisible(false);
+                    this.currentWindow = modelingWindow;
+                    this.currentWindow.setVisible(true);
                 }, "Modeling", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 127, 19),
                 new MyButton(() -> {
-                    this.productionWindow.setVisible(true);
-                    this.productionWindow.hideOtherWindows();
+                    this.currentWindow.setVisible(false);
+                    this.currentWindow = productionWindow;
+                    this.currentWindow.setVisible(true);
                 }, "Production", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 210, 14),
                 new MyButton(() -> {
-                    this.swerveWindow.setVisible(true);
-                    this.  swerveWindow.hideOtherWindows();
+                    this.currentWindow.setVisible(false);
+                    this.currentWindow = swerveWindow;
+                    this.currentWindow.setVisible(true);
                 }, "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 293, 25),
                 new MyButton(() -> {
-                    this.intakeWindow.setVisible(true);
-                    this.intakeWindow.hideOtherWindows();
+                    this.currentWindow.setVisible(false);
+                    this.currentWindow = intakeWindow;
+                    this.currentWindow.setVisible(true);
                 }, "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 376, 30),
                 new MyButton(() -> {
-                    this.shooterWindow.setVisible(true);
-                    this.shooterWindow.hideOtherWindows();
+                    this.currentWindow.setVisible(false);
+                    this.currentWindow = shooterWindow;
+                    this.currentWindow.setVisible(true);
                 }, "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 459, 25),
                 new MyButton(() -> {
-                    this.climberWindow.setVisible(true);
-                    this.climberWindow.hideOtherWindows();
+                    this.currentWindow.setVisible(false);
+                    this.currentWindow = climberWindow;
+                    this.currentWindow.setVisible(true);
                 }, "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_BOUNDS_X, 542, 24)
         );
         this.add(mechanicsMenu);
@@ -191,25 +203,27 @@ public class Screen extends JFrame {
                 new MyButton(() -> {
                     this.currentMenu.setVisible(false);
                     this.currentMenu = mechanicsMenu;
-                    this.mechanicsMenu.setVisible(true);
+                    this.currentMenu.setVisible(true);
                 }, "Mechanics", 100, 80, 557, 20, 14),
                 new MyButton(() -> {
                     this.currentMenu.setVisible(false);
                     this.currentMenu = electronicsMenu;
-                    this.electronicsMenu.setVisible(true);
+                    this.currentMenu.setVisible(true);
                 }, "Electronics", 100, 80, 662, 20, 12),
                 new MyButton(() -> {
                     this.currentMenu.setVisible(false);
                     this.currentMenu = programmingMenu;
-                    this.programmingMenu.setVisible(true);
-                }, "Programming", 100, 80, 767, 20, 3),
+                    this.currentMenu.setVisible(true);
+                }, "Programming", "programming.png", 100, 80, 767, 20, 3),
                 new MyButton(() -> {
                     this.currentMenu.setVisible(false);
                     this.currentMenu = communityMenu;
-                    this.communityMenu.setVisible(true);
+                    this.currentMenu.setVisible(true);
                 }, "Community", 100, 80, 872, 20, 9)
         );
+        this.add(stuffMenu);
 
+        ///////////////////
         mechanicsMenu.setVisible(false);
         electronicsMenu.setVisible(false);
         programmingMenu.setVisible(false);
@@ -217,10 +231,6 @@ public class Screen extends JFrame {
 
         this.setFocusable(true);
         this.setFocusTraversalKeysEnabled(false);
-
-        this.add(excaliburPanel);
-        this.add(ironSwordPanel);
-        this.add(stuffMenu);
 
         this.setVisible(true);
     }

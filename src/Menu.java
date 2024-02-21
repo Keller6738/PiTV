@@ -21,8 +21,4 @@ public class Menu extends JPanel {
 
         this.setBounds(x, y, width, height);
     }
-
-    public void hideOtherMenus(Menu... menus) {
-        for (Menu menu : menus)  menu.setVisible(false);
-    }
 }

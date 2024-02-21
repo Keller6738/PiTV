@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import static java.awt.Font.BOLD;
+import static javax.swing.SwingConstants.LEADING;
 
 public class MyButton extends JPanel implements MouseListener {
     private final JLabel textLabel;
@@ -34,13 +35,30 @@ public class MyButton extends JPanel implements MouseListener {
         this.addMouseListener(this);
     }
 
-    public String getText() {
-        return textLabel.getText();
+    public MyButton(Runnable run, String text, String fileName, int width, int height, int x, int y, int textX) {
+        this.setLayout(null);
+
+        this.textLabel = new JLabel(text, new ImageIcon(fileName), LEADING);
+
+        this.run = run;
+        this.text = text;
+
+        this.textLabel.setBackground(Colors.BLUE.color);
+        this.textLabel.setFont(new Font("", BOLD, 15));
+        this.textLabel.setForeground(Colors.BLUE.color);
+
+        this.setBackground(Colors.YELLOW.color);
+
+        this.textLabel.setBounds(textX, 0, width, height);
+
+        this.add(textLabel);
+
+        this.setOpaque(true);
+        this.setBounds(x, y, width, height);
+
+        this.addMouseListener(this);
     }
 
-    public Runnable getRun() {
-        return run;
-    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
