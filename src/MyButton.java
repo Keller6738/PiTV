@@ -76,4 +76,8 @@ public class MyButton extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {}
+
+    public String getText() {
+        return text;
+    }
 }
