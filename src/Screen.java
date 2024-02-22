@@ -200,7 +200,7 @@ public class Screen extends JFrame implements KeyListener {
         this.imageProcessingWindow.setVisible(false);
 
         //community
-        javaCourse = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        javaCourse = new Window("", "javaCourse", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(javaCourse);
         this.javaCourse.setVisible(false);
         mentorsCourseToFLL = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
@@ -263,7 +263,7 @@ public class Screen extends JFrame implements KeyListener {
                 new MyButton(() -> this.hidePrevAndShowNextWindow(shooterProgrammingWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 25),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(climberProgrammingWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 24),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(autonomousWindow), "Autonomous", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 9),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "Image processing", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 0)
+                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "<html>image<br>processing</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 10)
         );
         this.add(programmingMenu);
 
