@@ -263,22 +263,22 @@ public class Screen extends JFrame implements KeyListener {
                 new MyButton(() -> this.hidePrevAndShowNextWindow(shooterProgrammingWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 25),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(climberProgrammingWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 24),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(autonomousWindow), "Autonomous", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 9),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "<html>image<br>processing</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 10)
+                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "<html>image<br>processing</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 10)
         );
         this.add(programmingMenu);
 
-        this.communityMenu = new Menu(DEPUTY_MENU_WIDTH * 2, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP, 6, 2,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(javaCourse), "קורס ג'אווה", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mentorsCourseToFLL), "קורס מנטורים ל-FLL", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(babaDa), "בבא-דע", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mentoringFLLGroups), "מנטור קבוצות FLL", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringInFIRST), "התנדבויות ב-FIRST", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(excaliday), "EXCALIDAY", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(exposingRoboticsToChildren), "חשיפת הרובוטיקה לילדים", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(distributionFIRSTandSTEM), "הפצת FIRST ו-STEM", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(donatingBooksToSoldiers), "תרומת ספרים לחיילים", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swordOfPeace), "SWORD of PEACE", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies), "התנדבויות עם המשפחות המפונות", DEPUTY_MENU_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, 0)
+        this.communityMenu = new Menu(DEPUTY_MENU_WIDTH * 4, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X - DEPUTY_MENU_WIDTH * 3, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP, 6, 2,
+                new MyButton(() -> this.hidePrevAndShowNextWindow(javaCourse), "קורס ג'אווה", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 127, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(mentorsCourseToFLL), "קורס מנטורים ל-FLL", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 293, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(babaDa), "בבא-דע", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 376, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(mentoringFLLGroups), "מנטור קבוצות FLL", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 459, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringInFIRST), "התנדבויות ב-FIRST", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 542, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(excaliday), "EXCALIDAY", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 659, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(exposingRoboticsToChildren), "חשיפת הרובוטיקה לילדים", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 0, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(distributionFIRSTandSTEM), "הפצת FIRST ו-STEM", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 0, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(donatingBooksToSoldiers), "תרומת ספרים לחיילים", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH,0 , 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(swordOfPeace), "SWORD of PEACE", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 0, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies), "התנדבויות עם המשפחות המפונות", DEPUTY_MENU_BUTTONS_WIDTH * 2, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X - DEPUTY_MENU_BUTTONS_WIDTH, 0, 0)
         );
         this.add(communityMenu);
 
