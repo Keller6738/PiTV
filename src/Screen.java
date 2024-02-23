@@ -2,21 +2,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Calendar;
+import java.util.TimerTask;
+import java.util.Timer;
 
 import static java.awt.Font.BOLD;
 import static java.awt.Image.SCALE_SMOOTH;
 import static java.awt.event.KeyEvent.VK_F4;
+import static java.util.Calendar.*;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.RIGHT;
 
 public class Screen extends JFrame implements KeyListener {
     private final JPanel excaliburPanel;
     private final JLabel excaliburLabel;
-    private final ImageIcon excaliburIcon;
+    private ImageIcon excaliburIcon;
 
     private final JPanel ironSwordPanel;
     private final JLabel ironSwordLabel;
     private final ImageIcon ironSwordIcon;
+
+    private final JPanel hourPanel;
+    private final JLabel hourLabel;
+    private final Calendar calendar;
+
 
     private Menu stuffMenu;
     private Menu mechanicsMenu;
@@ -75,8 +84,8 @@ public class Screen extends JFrame implements KeyListener {
     private static final int DEPUTY_MENU_BUTTONS_H_GAP = 5;
     private static final int DEPUTY_MENU_BUTTONS_V_GAP = 5;
 
-    private static final int WINDOWS_WIDTH = 850;
-    private static final int WINDOWS_HEIGHT = 830;
+    private static final int WINDOWS_WIDTH = 1770;
+    private static final int WINDOWS_HEIGHT = 930;
 
     private static final int WINDOWS_X = 7;
     private static final int WINDOWS_Y = 120;
@@ -84,20 +93,21 @@ public class Screen extends JFrame implements KeyListener {
     public Screen() {
         //design panels
         this.excaliburPanel = new JPanel();
-        this.excaliburIcon = new ImageIcon("Excalibur.jpg");
-        this.excaliburLabel = new JLabel("Excalibur", excaliburIcon, CENTER);
+        this.excaliburIcon = new ImageIcon("excalibur6738.png");
+        this.excaliburIcon = this.scaleImageIcon(excaliburIcon, 0.65);
+        this.excaliburLabel = new JLabel(excaliburIcon, CENTER);
 
         this.excaliburLabel.setHorizontalTextPosition(RIGHT);
         this.excaliburLabel.setFont(new Font("", BOLD, 45));
         this.excaliburLabel.setForeground(Colors.YELLOW.color);
-        this.excaliburLabel.setBounds(13, 10, 450, 80);
+        this.excaliburLabel.setBounds(13, 2, 790, 80);
 
         this.excaliburPanel.setLayout(null);
         this.excaliburPanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
         this.excaliburPanel.setBackground(Colors.BLUE.color);
 
         this.excaliburPanel.add(excaliburLabel);
-        this.excaliburPanel.setBounds(10, 10, 538, 100);
+        this.excaliburPanel.setBounds(10, 10, 800, 100);
         this.add(excaliburPanel);
 
         this.ironSwordPanel = new JPanel();
@@ -113,6 +123,35 @@ public class Screen extends JFrame implements KeyListener {
         this.ironSwordPanel.add(ironSwordLabel);
         this.ironSwordPanel.setBounds(1795, 645, 115, 425);
         this.add(ironSwordPanel);
+
+        this.hourPanel = new JPanel();
+        this.hourPanel.setBounds(820, 10, 500, 100);
+        this.hourLabel = new JLabel();
+        this.hourLabel.setForeground(Colors.YELLOW.color);
+        this.calendar = Calendar.getInstance();
+
+        TimerTask updateTimeTask = new TimerTask() {
+            @Override
+            public void run() {
+                Calendar now = Calendar.getInstance();
+                int hour = now.get(Calendar.HOUR_OF_DAY); // 24-hour clock
+                int minute = now.get(Calendar.MINUTE);
+                int second = now.get(Calendar.SECOND);
+
+                hourLabel.setText("%d-%02d-%02d %02d:%02d:%02d\n" + hour + minute + second);
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(updateTimeTask, 0, 1000);
+
+        this.hourPanel.setLayout(null);
+        this.hourPanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
+        this.hourPanel.setBackground(Colors.BLUE.color);
+
+        this.hourLabel.setBounds(830, 10, 490, 100);
+        this.hourPanel.add(hourLabel);
+        this.add(hourPanel);
 
         //set frame
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -150,27 +189,32 @@ public class Screen extends JFrame implements KeyListener {
         this.climberMechanicsWindow.setVisible(false);
 
         //electronics
-        swerveElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        swerveElectronicsWindow = new Window("מרכב: אנחנו משתמשים בSRX Mag Encoders כדי שנוכל לקבוע ולאפס את הכיוון של כל אחד מהמודולות של הסוורב.\n", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 35);
         this.add(swerveElectronicsWindow);
         this.swerveElectronicsWindow.setVisible(false);
 
-        intakeElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        intakeElectronicsWindow = new Window("איסוף: בשביל האיסוף אנחנו משתמשים בשני חיישנים-\n" +
+                "בשביל הזוית של האיסוף אנחנו משתמשים בSRX Mag Encoders כדי שנוכל לקבוע את הזוית של האיסוף.\n" +
+                "אנחנו משתמשים גם בחיישן BEAM-BREAK שממוקם בשני צידי האיסוף כדי שנוכל לדעת האם יש NOTE בתוך האיסוף.\n", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 15);
         this.add(intakeElectronicsWindow);
         this.intakeElectronicsWindow.setVisible(false);
 
-        shooterElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        shooterElectronicsWindow = new Window("ירי: אנחנו משתמשים Beam-Break שממוקם בשני צידי הירי כדי שנוכל לקבוע האם יש עובר NOTE בירי.\n", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 25);
         this.add(shooterElectronicsWindow);
         this.shooterElectronicsWindow.setVisible(false);
 
-        climberElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        climberElectronicsWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 25);
         this.add(climberElectronicsWindow);
         this.climberElectronicsWindow.setVisible(false);
 
-        wiringWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        wiringWindow = new Window("חיווט:\n" +
+                "במהלך תהליך החיווט מצאנו דרכים יצירתיות כדי להעביר את הכבלים בדרך שבה הכל יהיה מסודר. על כל אחד מהכבלים שנכנסים ל ROBORIO, יש מדבקה שעליה כתוב לאיזה אינקודר הכבל מחובר. הרבה מהכבלים שלנו הועברו דרך פרופילים, או דרך אוגדי כבלים שסודרו יפה בצמוד לפרופיל. דאגנו לכך שכל הכבלים שנכנסים לרכיבים, נכנסים אליהם בדרך מסודרת נוחה ונגישה. בנוסף החלטנו למקם את כל הרכיבים האלקטרונים במקומות גלויים ולא מוסתרים כדי שנוכל לעקוב אחרי מצבם לפי הלדים שלהם.\n",
+                "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(wiringWindow);
         this.wiringWindow.setVisible(false);
 
-        monitoringWindow = new Window("", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        monitoringWindow = new Window("בקרה:\n" +
+                "אנחנו מקיימים פגישה נפרדת עם צוות תוכנה שבה אנחנו מחליטים על בקרה שתתן לנו את האפשרות לאוטומציות שיקלו על השליטה ברובוט שלנו.", "", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(monitoringWindow);
         this.monitoringWindow.setVisible(false);
 
