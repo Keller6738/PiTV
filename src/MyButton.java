@@ -35,6 +35,30 @@ public class MyButton extends JPanel implements MouseListener {
         this.addMouseListener(this);
     }
 
+    public MyButton(Runnable run, String text, int width, int height, int x, int y, int textX, int size) {
+        this.setLayout(null);
+
+        this.textLabel = new JLabel(text);
+
+        this.run = run;
+        this.text = text;
+
+        this.textLabel.setBackground(Colors.BLUE.color);
+        this.textLabel.setFont(new Font("", BOLD, size));
+        this.textLabel.setForeground(Colors.BLUE.color);
+
+        this.setBackground(Colors.YELLOW.color);
+
+        this.textLabel.setBounds(textX, 0, width, height);
+
+        this.add(textLabel);
+
+        this.setOpaque(true);
+        this.setBounds(x, y, width, height);
+
+        this.addMouseListener(this);
+    }
+
     public MyButton(Runnable run, String text, String fileName, int width, int height, int x, int y, int textX) {
         this.setLayout(null);
 
