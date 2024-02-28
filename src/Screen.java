@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static java.awt.Font.BOLD;
 import static java.awt.Image.SCALE_SMOOTH;
@@ -17,14 +19,16 @@ public class Screen extends JFrame implements KeyListener {
     private final JLabel excaliburLabel;
     private ImageIcon excaliburIcon;
 
-    private final JPanel ironSwordPanel;
-    private final JLabel ironSwordLabel;
-    private final ImageIcon ironSwordIcon;
+    private final JPanel rightSidePanel;
+    private final JLabel rightSideLabel;
+    private final ImageIcon rightSideIcon;
 
-//    private final JPanel hourPanel;
-//    private final JLabel hourLabel;
-//    private final Calendar calendar;
+    private final JPanel hourPanel;
+    private final JLabel hourLabel;
 
+    private final JPanel leftSidePanel;
+    private final JLabel leftSideLabel;
+    private final ImageIcon leftSideIcon;
 
     //menus
     private final Menu stuffMenu;
@@ -91,14 +95,15 @@ public class Screen extends JFrame implements KeyListener {
     private static final int DEPUTY_MENU_BUTTONS_H_GAP = 5;
     private static final int DEPUTY_MENU_BUTTONS_V_GAP = 5;
 
-    private static final int WINDOWS_WIDTH = 1770;
+    private static final int WINDOWS_WIDTH = 1400;
     private static final int WINDOWS_HEIGHT = 950;
 
-    private static final int WINDOWS_X = 7;
+    private static final int WINDOWS_X = 340;
     private static final int WINDOWS_Y = 120;
 
     public Screen() {
         //design panels
+        //excalibur panel
         this.excaliburPanel = new JPanel();
         this.excaliburIcon = new ImageIcon("excalibur6738.png");
         this.excaliburIcon = this.scaleImageIcon(excaliburIcon, 0.65);
@@ -117,49 +122,51 @@ public class Screen extends JFrame implements KeyListener {
         this.excaliburPanel.setBounds(10, 10, 800, 100);
         this.add(excaliburPanel);
 
-        this.ironSwordPanel = new JPanel();
-        this.ironSwordIcon = new ImageIcon("ironSword.jpg");
-        this.ironSwordLabel = new JLabel(ironSwordIcon);
+        //right side panel
+        this.rightSidePanel = new JPanel();
+        this.rightSideIcon = new ImageIcon("ironSword.jpg");
+        this.rightSideLabel = new JLabel(rightSideIcon);
 
-        this.ironSwordLabel.setBounds(870, 650, 105, 300);
+        this.rightSideLabel.setBounds(1750, 650, 155, 400);
 
-        this.ironSwordPanel.setLayout(null);
-        this.ironSwordPanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
-        this.ironSwordPanel.setBackground(Colors.BLUE.color);
+        this.rightSidePanel.setLayout(null);
+        this.rightSidePanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
+        this.rightSidePanel.setBackground(Colors.BLUE.color);
 
-        this.ironSwordPanel.add(ironSwordLabel);
-        this.ironSwordPanel.setBounds(1745, 645, 165, 425);
-        this.add(ironSwordPanel);
+        this.rightSidePanel.add(rightSideLabel);
+        this.rightSidePanel.setBounds(1745, 645, 165, 425);
+        this.add(rightSidePanel);
 
         //hour panel
-//        this.hourPanel = new JPanel();
-//        this.hourPanel.setBounds(820, 10, 500, 100);
-//        this.hourLabel = new JLabel();
-//        this.hourLabel.setForeground(Colors.YELLOW.color);
-//        this.calendar = Calendar.getInstance();
-//
-//        TimerTask updateTimeTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//                Calendar now = Calendar.getInstance();
-//                int hour = now.get(Calendar.HOUR_OF_DAY); // 24-hour clock
-//                int minute = now.get(Calendar.MINUTE);
-//                int second = now.get(Calendar.SECOND);
-//
-//                hourLabel.setText("%d-%02d-%02d %02d:%02d:%02d\n" + hour + minute + second);
-//            }
-//        };
-//
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(updateTimeTask, 0, 1000);
-//
-//        this.hourPanel.setLayout(null);
-//        this.hourPanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
-//        this.hourPanel.setBackground(Colors.BLUE.color);
-//
-//        this.hourLabel.setBounds(830, 10, 490, 100);
-//        this.hourPanel.add(hourLabel);
-//        this.add(hourPanel);
+        this.hourPanel = new JPanel();
+        this.hourPanel.setBackground(Colors.BLUE.color);
+        this.hourPanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
+
+        this.hourLabel = new JLabel();
+        this.hourLabel.setFont(new Font("", Font.BOLD, 60));
+
+        Timer timer = new Timer(1000, e -> updateTime());
+        timer.start();
+
+        this.hourPanel.add(hourLabel);
+
+        this.hourPanel.setBounds(820, 10, 450, 100);
+        this.add(hourPanel);
+
+        //left side panel
+        this.leftSidePanel = new JPanel();
+        this.leftSideIcon = new ImageIcon("ironSword.jpg");
+        this.leftSideLabel = new JLabel(rightSideIcon);
+
+        this.leftSideLabel.setBounds(13, 125, 315, 940);
+
+        this.leftSidePanel.setLayout(null);
+        this.leftSidePanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
+        this.leftSidePanel.setBackground(Colors.BLUE.color);
+
+        this.leftSidePanel.add(rightSideLabel);
+        this.leftSidePanel.setBounds(10, 120, 320, 950);
+        this.add(leftSidePanel);
 
         //set frame
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -285,36 +292,36 @@ public class Screen extends JFrame implements KeyListener {
         this.currentMenu = new Menu(0, 0, 0, 0, 0, 0);
 
         this.mechanicsMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(modelingWindow), "Modeling", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 17),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(productionWindow), "Production", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 11),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveMechanicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 25),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeMechanicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 30),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterMechanicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 25),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(climberMechanicsWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 24)
+                new MyButton(() -> this.hidePrevAndShowNextWindow(modelingWindow), "Modeling", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 34),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(productionWindow), "Production", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 22),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveMechanicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 50),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeMechanicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 45.0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterMechanicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 37.5),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(climberMechanicsWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 36.0)
         );
         this.add(mechanicsMenu);
 
         this.electronicsMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mainElectronicsWindow), "<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main<br>electronics</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 459, 10),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveElectronicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 25),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeElectronicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 293, 30),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterElectronicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 376, 25),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(wiringWindow), "Wiring", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 542, 25),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(monitoringWindow), "Sensors", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 659, 20)
+                new MyButton(() -> this.hidePrevAndShowNextWindow(mainElectronicsWindow), "<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main<br>electronics</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 459, 15.0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveElectronicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 37.5),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeElectronicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 293, 45.0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterElectronicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 376, 37.5),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(wiringWindow), "Wiring", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 542, 37.5),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(monitoringWindow), "Sensors", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 659, 30.0)
         );
         this.add(electronicsMenu);
 
         this.programmingMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveProgrammingWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 25),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeProgrammingWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 30),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterProgrammingWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 25),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(climberProgrammingWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 24),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(autonomousWindow), "Autonomous", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 9),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "<html>&nbsp;&nbsp;&nbsp;&nbsp;image<br>processing</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 10)
+                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveProgrammingWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 37.5),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeProgrammingWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 45.0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterProgrammingWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 37.5),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(climberProgrammingWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 36.0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(autonomousWindow), "Autonomous", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 13.5),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "<html>&nbsp;&nbsp;&nbsp;&nbsp;image<br>processing</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 15.0)
         );
         this.add(programmingMenu);
 
-        this.communityMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT + this.ironSwordPanel.getHeight(), DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
+        this.communityMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT + this.rightSidePanel.getHeight(), DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
                 new MyButton(() -> this.hidePrevAndShowNextWindow(javaCourse), String.format("<html>%sjava<br>%scourse</html>", this.indent(8), this.indent(6)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 0),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(mentorsCourseToFLL), String.format("<html>%smentors<br>%scourse<br>%sto FLL</html>", this.indent(5), this.indent(6), this.indent(7)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 0),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(babaDa), "בבא-דע", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 25),
@@ -331,20 +338,20 @@ public class Screen extends JFrame implements KeyListener {
 
         this.stuffMenu = new Menu(630, 100, 1280, 10, 5, 7,
                 new MyButton(() -> {
-                    if (this.currentMenu == this.communityMenu) this.add(ironSwordPanel);
+                    if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.mechanicsMenu);
                 }, "Mechanics", 150, 80, 557, 20, 24, 20),
                 new MyButton(() -> {
-                    if (this.currentMenu == this.communityMenu) this.add(ironSwordPanel);
+                    if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.electronicsMenu);
                 }, "Electronics", 150, 80, 662, 20, 21, 20),
                 new MyButton(() -> {
-                    if (this.currentMenu == this.communityMenu) this.add(ironSwordPanel);
+                    if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.programmingMenu);
                 }, "Programming", 150, 80, 767, 20, 11, 20),
                 new MyButton(() -> {
                     this.hidePrevAndShowNextMenu(this.communityMenu);
-                    this.remove(ironSwordPanel);
+                    this.remove(rightSidePanel);
                 }, "Community", 150, 80, 872, 20, 20, 20)
         );
         this.add(stuffMenu);
@@ -387,6 +394,12 @@ public class Screen extends JFrame implements KeyListener {
 
     public String indent(int numberOfSpaces) {
         return "&nbsp;".repeat(numberOfSpaces);
+    }
+
+    private void updateTime() {
+        String hour = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        this.hourLabel.setText(hour);
+        this.hourLabel.setForeground(Colors.YELLOW.color);
     }
 
     @Override

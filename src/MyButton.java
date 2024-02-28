@@ -11,7 +11,7 @@ public class MyButton extends JPanel implements MouseListener {
     private final Runnable run;
     private final String text;
 
-    public MyButton(Runnable run, String text, int width, int height, int x, int y, int textX) {
+    public MyButton(Runnable run, String text, int width, int height, int x, int y, double textX) {
         this.setLayout(null);
 
         this.textLabel = new JLabel(text);
@@ -25,7 +25,7 @@ public class MyButton extends JPanel implements MouseListener {
 
         this.setBackground(Colors.YELLOW.color);
 
-        this.textLabel.setBounds(textX, 0, width, height);
+        this.textLabel.setBounds((int)textX, 0, width, height);
 
         this.add(textLabel);
 
