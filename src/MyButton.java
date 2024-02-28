@@ -90,18 +90,20 @@ public class MyButton extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+        this.setBackground(Colors.BLUE.color);
+        this.textLabel.setForeground(Colors.YELLOW.color);
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+        this.setBackground(Colors.YELLOW.color);
+        this.textLabel.setForeground(Colors.BLUE.color);
+    }
 
     @Override
     public void mouseEntered(MouseEvent e) {}
 
     @Override
     public void mouseExited(MouseEvent e) {}
-
-    public String getText() {
-        return text;
-    }
 }

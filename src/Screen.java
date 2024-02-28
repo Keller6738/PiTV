@@ -77,16 +77,16 @@ public class Screen extends JFrame implements KeyListener {
     private Window currentWindow;
 
     //constants
-    private static final int DEPUTY_MENU_WIDTH = 115;
+    private static final int DEPUTY_MENU_WIDTH = 165;
     private static final int DEPUTY_MENU_HEIGHT = 522;
 
-    private static final int DEPUTY_MENU_X = 1795;
+    private static final int DEPUTY_MENU_X = 1745;
     private static final int DEPUTY_MENU_Y = 120;
 
-    private static final int DEPUTY_MENU_BUTTONS_WIDTH = 100;
+    private static final int DEPUTY_MENU_BUTTONS_WIDTH = 150;
     private static final int DEPUTY_MENU_BUTTONS_HEIGHT = 80;
 
-    private static final int DEPUTY_MENU_BUTTONS_X = 873;
+    private static final int DEPUTY_MENU_BUTTONS_X = 823;
 
     private static final int DEPUTY_MENU_BUTTONS_H_GAP = 5;
     private static final int DEPUTY_MENU_BUTTONS_V_GAP = 5;
@@ -128,7 +128,7 @@ public class Screen extends JFrame implements KeyListener {
         this.ironSwordPanel.setBackground(Colors.BLUE.color);
 
         this.ironSwordPanel.add(ironSwordLabel);
-        this.ironSwordPanel.setBounds(1795, 645, 115, 425);
+        this.ironSwordPanel.setBounds(1745, 645, 165, 425);
         this.add(ironSwordPanel);
 
         //hour panel
@@ -247,7 +247,7 @@ public class Screen extends JFrame implements KeyListener {
         this.imageProcessingWindow.setVisible(false);
 
         //community
-        javaCourse = new Window("javaCourse.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.3);
+        javaCourse = new Window("javaCourse.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
         this.add(javaCourse);
         this.javaCourse.setVisible(false);
         mentorsCourseToFLL = new Window("mentorsCourse.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.3);
@@ -300,7 +300,7 @@ public class Screen extends JFrame implements KeyListener {
                 new MyButton(() -> this.hidePrevAndShowNextWindow(intakeElectronicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 293, 30),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(shooterElectronicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 376, 25),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(wiringWindow), "Wiring", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 542, 25),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(monitoringWindow), "Monitoring", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 659, 10)
+                new MyButton(() -> this.hidePrevAndShowNextWindow(monitoringWindow), "Sensors", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 659, 20)
         );
         this.add(electronicsMenu);
 
