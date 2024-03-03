@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="uk.co.caprica.vlcj" level="application" />
+    <orderEntry type="library" name="openjfx-21.0" level="project" />
   </component>
 </module>

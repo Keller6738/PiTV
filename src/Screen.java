@@ -179,7 +179,7 @@ public class Screen extends JFrame implements KeyListener {
         this.currentWindow = new Window("", 0, 0, 0, 0);
 
         //mechanics
-        modelingWindow = new Window("modeling.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1);
+        modelingWindow = new Window("modeling.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
         this.add(modelingWindow);
         this.modelingWindow.setVisible(false);
 
@@ -187,40 +187,40 @@ public class Screen extends JFrame implements KeyListener {
         this.add(productionWindow);
         this.productionWindow.setVisible(false);
 
-        swerveMechanicsWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        swerveMechanicsWindow = new Window("swerveMechanics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
         this.add(swerveMechanicsWindow);
         this.swerveMechanicsWindow.setVisible(false);
 
-        intakeMechanicsWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        intakeMechanicsWindow = new Window("intakeMechanics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
         this.add(intakeMechanicsWindow);
         this.intakeMechanicsWindow.setVisible(false);
 
-        shooterMechanicsWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        shooterMechanicsWindow = new Window("shooterMechanics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
         this.add(shooterMechanicsWindow);
         this.shooterMechanicsWindow.setVisible(false);
 
-        climberMechanicsWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        climberMechanicsWindow = new Window("climberMechanics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
         this.add(climberMechanicsWindow);
         this.climberMechanicsWindow.setVisible(false);
 
         //electronics
-        mainElectronicsWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        mainElectronicsWindow = new Window("mainElectronics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.15);
         this.add(mainElectronicsWindow);
         this.mainElectronicsWindow.setVisible(false);
 
-        swerveElectronicsWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        swerveElectronicsWindow = new Window("swerveElectronics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.15);
         this.add(swerveElectronicsWindow);
         this.swerveElectronicsWindow.setVisible(false);
 
-        intakeElectronicsWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        intakeElectronicsWindow = new Window("intakeElectronics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
         this.add(intakeElectronicsWindow);
         this.intakeElectronicsWindow.setVisible(false);
 
-        shooterElectronicsWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        shooterElectronicsWindow = new Window("shooterElectronics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
         this.add(shooterElectronicsWindow);
         this.shooterElectronicsWindow.setVisible(false);
 
-        wiringWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        wiringWindow = new Window("wiring.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.15);
         this.add(wiringWindow);
         this.wiringWindow.setVisible(false);
 
@@ -229,7 +229,7 @@ public class Screen extends JFrame implements KeyListener {
         this.monitoringWindow.setVisible(false);
 
         //programming
-        swerveProgrammingWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        swerveProgrammingWindow = new Window("swerveProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.5);
         this.add(swerveProgrammingWindow);
         this.swerveProgrammingWindow.setVisible(false);
 
@@ -245,7 +245,7 @@ public class Screen extends JFrame implements KeyListener {
         this.add(climberProgrammingWindow);
         this.climberProgrammingWindow.setVisible(false);
 
-        autonomousWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        autonomousWindow = new Window("Auto.gif",  WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(autonomousWindow);
         this.autonomousWindow.setVisible(false);
 
@@ -254,7 +254,7 @@ public class Screen extends JFrame implements KeyListener {
         this.imageProcessingWindow.setVisible(false);
 
         //community
-        javaCourse = new Window("javaCourse.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
+        javaCourse = new Window("javaCourse.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1);
         this.add(javaCourse);
         this.javaCourse.setVisible(false);
         mentorsCourseToFLL = new Window("mentorsCourse.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
@@ -340,7 +340,7 @@ public class Screen extends JFrame implements KeyListener {
                 new MyButton(() -> {
                     if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.mechanicsMenu);
-                }, "Mechanics", "programming.png", 150, 80, 557, 20, 24, 20, 0.3),
+                }, "Mechanics", 150, 80, 557, 20, 24, 20),
                 new MyButton(() -> {
                     if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.electronicsMenu);

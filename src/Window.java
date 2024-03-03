@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 
-import static java.awt.Font.BOLD;
 import static java.awt.Image.SCALE_SMOOTH;
 
 public class Window extends JPanel {
@@ -45,18 +44,6 @@ public class Window extends JPanel {
     }
 
     public Window(String fileName, int width, int height, int x, int y, int size, String... texts) {
-        /*this.textLabels = new JLabel[texts.length];
-
-        this.setLayout(new GridLayout(textLabels.length, 1, 0, 0));
-
-        for (int i = 0; i < texts.length; i++) {
-            this.textLabels[i] = new JLabel(texts[i]);
-            this.textLabels[i].setForeground(Colors.YELLOW.color);
-            this.textLabels[i].setFont(new Font("", BOLD, size));
-
-            this.add(this.textLabels[i]);
-        }*/
-
         this.imageLabel = new JLabel();
         this.imageIcon = new ImageIcon(fileName);
         this.imageLabel.setIcon(imageIcon);

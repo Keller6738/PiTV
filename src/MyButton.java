@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 
 import static java.awt.Font.BOLD;
 import static java.awt.Image.SCALE_SMOOTH;
-import static javax.swing.SwingConstants.LEADING;
+import static javax.swing.SwingConstants.*;
 
 public class MyButton extends JPanel implements MouseListener {
     private final JLabel textLabel;
@@ -67,6 +67,8 @@ public class MyButton extends JPanel implements MouseListener {
         this.textLabel.setBackground(Colors.BLUE.color);
         this.textLabel.setFont(new Font("", BOLD, textSize));
         this.textLabel.setForeground(Colors.BLUE.color);
+
+        this.textLabel.setHorizontalTextPosition(CENTER);
 
         this.setBackground(Colors.YELLOW.color);
 
