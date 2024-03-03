@@ -42,17 +42,4 @@ public class Window extends JPanel {
 
         this.imageIcon.setImage(originalImage.getScaledInstance(newWidth, newHeight, SCALE_SMOOTH));
     }
-
-    public Window(String fileName, int width, int height, int x, int y, int size, String... texts) {
-        this.imageLabel = new JLabel();
-        this.imageIcon = new ImageIcon(fileName);
-        this.imageLabel.setIcon(imageIcon);
-
-        this.setBounds(x, y, width, height);
-        this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
-
-        this.setBackground(Colors.BLUE.color);
-
-        this.add(imageLabel);
-    }
 }

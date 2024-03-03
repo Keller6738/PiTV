@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -40,6 +42,7 @@ public class Screen extends JFrame implements KeyListener {
 
 
     //windows
+    private Window mainWindow;
 
     //mechanics
     private final Window modelingWindow;
@@ -102,6 +105,8 @@ public class Screen extends JFrame implements KeyListener {
     private static final int WINDOWS_Y = 120;
 
     public Screen() {
+        this.currentWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.add(currentWindow);
         //design panels
         //excalibur panel
         this.excaliburPanel = new JPanel();
@@ -121,6 +126,30 @@ public class Screen extends JFrame implements KeyListener {
         this.excaliburPanel.add(excaliburLabel);
         this.excaliburPanel.setBounds(10, 10, 800, 100);
         this.add(excaliburPanel);
+
+        this.mainWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.excaliburLabel.add(mainWindow);
+        this.mainWindow.setVisible(false);
+        this.excaliburLabel.addMouseListener(
+                new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        hidePrevAndShowNextWindow(mainWindow);
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {}
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {}
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {}
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {}
+                }
+        );
 
         //right side panel
         this.rightSidePanel = new JPanel();
@@ -155,16 +184,16 @@ public class Screen extends JFrame implements KeyListener {
 
         //left side panel
         this.leftSidePanel = new JPanel();
-        this.leftSideIcon = new ImageIcon("ironSword.jpg");
-        this.leftSideLabel = new JLabel(rightSideIcon);
+        this.leftSideIcon = this.scaleImageIcon(new ImageIcon("left.png"), 0.9);
+        this.leftSideLabel = new JLabel(leftSideIcon);
 
-        this.leftSideLabel.setBounds(13, 125, 315, 940);
+        this.leftSideLabel.setBounds(10, 400, 315, 500);
 
         this.leftSidePanel.setLayout(null);
         this.leftSidePanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
         this.leftSidePanel.setBackground(Colors.BLUE.color);
 
-        this.leftSidePanel.add(rightSideLabel);
+        this.leftSidePanel.add(leftSideLabel);
         this.leftSidePanel.setBounds(10, 120, 320, 950);
         this.add(leftSidePanel);
 
@@ -176,14 +205,13 @@ public class Screen extends JFrame implements KeyListener {
         this.setLayout(null);
 
         //windows
-        this.currentWindow = new Window("", 0, 0, 0, 0);
 
         //mechanics
         modelingWindow = new Window("modeling.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
         this.add(modelingWindow);
         this.modelingWindow.setVisible(false);
 
-        productionWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        productionWindow = new Window("production.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
         this.add(productionWindow);
         this.productionWindow.setVisible(false);
 
@@ -224,7 +252,7 @@ public class Screen extends JFrame implements KeyListener {
         this.add(wiringWindow);
         this.wiringWindow.setVisible(false);
 
-        monitoringWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        monitoringWindow = new Window("sensors.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(monitoringWindow);
         this.monitoringWindow.setVisible(false);
 
@@ -413,12 +441,4 @@ public class Screen extends JFrame implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {}
-
-
-//    private void hideOtherWindowsAndMenus(Menu... menus, Window... windows) {
-//        for (Menu menu : menus)  menu.setVisible(false);
-//        for (Window window : windows)  window.setVisible(false);
-//    }
-
-//    https://chat.openai.com/share/36e1b1b9-0c41-4acd-87ad-069a1c7bc119
 }
