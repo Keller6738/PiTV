@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -105,7 +103,7 @@ public class Screen extends JFrame implements KeyListener {
     private static final int WINDOWS_Y = 120;
 
     public Screen() {
-        this.currentWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        this.currentWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
         this.add(currentWindow);
         //design panels
         //excalibur panel
@@ -127,36 +125,15 @@ public class Screen extends JFrame implements KeyListener {
         this.excaliburPanel.setBounds(10, 10, 800, 100);
         this.add(excaliburPanel);
 
-        this.mainWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.excaliburLabel.add(mainWindow);
-        this.mainWindow.setVisible(false);
-        this.excaliburLabel.addMouseListener(
-                new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        hidePrevAndShowNextWindow(mainWindow);
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {}
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {}
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {}
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {}
-                }
-        );
+        this.mainWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
+        this.add(mainWindow);
 
         //right side panel
         this.rightSidePanel = new JPanel();
-        this.rightSideIcon = new ImageIcon("ironSword.jpg");
+        this.rightSideIcon = this.scaleImageIcon(new ImageIcon("right1.png"), 0.5);
         this.rightSideLabel = new JLabel(rightSideIcon);
 
-        this.rightSideLabel.setBounds(1750, 650, 155, 400);
+        this.rightSideLabel.setBounds(0, 0, 155, 400);
 
         this.rightSidePanel.setLayout(null);
         this.rightSidePanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
@@ -172,7 +149,7 @@ public class Screen extends JFrame implements KeyListener {
         this.hourPanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
 
         this.hourLabel = new JLabel();
-        this.hourLabel.setFont(new Font("", Font.BOLD, 60));
+        this.hourLabel.setFont(new Font("", BOLD, 60));
 
         Timer timer = new Timer(1000, e -> updateTime());
         timer.start();
@@ -184,10 +161,10 @@ public class Screen extends JFrame implements KeyListener {
 
         //left side panel
         this.leftSidePanel = new JPanel();
-        this.leftSideIcon = this.scaleImageIcon(new ImageIcon("left.png"), 0.9);
+        this.leftSideIcon = this.scaleImageIcon(new ImageIcon("left.png"), 1.1);
         this.leftSideLabel = new JLabel(leftSideIcon);
 
-        this.leftSideLabel.setBounds(10, 400, 315, 500);
+        this.leftSideLabel.setBounds(0, 80, 315, 800);
 
         this.leftSidePanel.setLayout(null);
         this.leftSidePanel.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
@@ -399,6 +376,7 @@ public class Screen extends JFrame implements KeyListener {
 
     private void hidePrevAndShowNextMenu(Menu menu) {
         this.currentWindow.setVisible(false);
+        this.add(mainWindow);
         this.currentMenu.setVisible(false);
         this.currentMenu = menu;
         this.currentMenu.setVisible(true);
@@ -406,6 +384,7 @@ public class Screen extends JFrame implements KeyListener {
 
     private void hidePrevAndShowNextWindow(Window window) {
         this.currentWindow.setVisible(false);
+        this.remove(mainWindow);
         this.currentWindow = window;
         this.currentWindow.setVisible(true);
     }
