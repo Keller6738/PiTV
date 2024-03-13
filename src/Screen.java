@@ -239,11 +239,11 @@ public class Screen extends JFrame implements KeyListener {
         this.add(swerveProgrammingWindow);
         this.swerveProgrammingWindow.setVisible(false);
 
-        intakeProgrammingWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        intakeProgrammingWindow = new Window("intakeProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(intakeProgrammingWindow);
         this.intakeProgrammingWindow.setVisible(false);
 
-        shooterProgrammingWindow = new Window("shooterProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        shooterProgrammingWindow = new Window("shooterProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
         this.add(shooterProgrammingWindow);
         this.shooterProgrammingWindow.setVisible(false);
 
@@ -254,7 +254,7 @@ public class Screen extends JFrame implements KeyListener {
         autonomousWindow = new Window("Auto.gif",  WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(autonomousWindow);
         this.autonomousWindow.setVisible(false);
-
+        //2024 V
         imageProcessingWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(imageProcessingWindow);
         this.imageProcessingWindow.setVisible(false);
