@@ -5,7 +5,7 @@ public enum Colors {
     YELLOW(new Color(211, 175, 55)),
     DARK_YELLOW(new Color(211, 100, 0));
 
-    public Color color;
+    public final Color color;
 
     Colors(Color color) {
         this.color = color;
