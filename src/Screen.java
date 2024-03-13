@@ -178,6 +178,7 @@ public class Screen extends JFrame implements KeyListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setUndecorated(true);
         this.setExtendedState(MAXIMIZED_BOTH); // 1920 * 1080
+//        this.setSize(1920, 1080);
         this.getContentPane().setBackground(Colors.BLUE.color);
         this.setLayout(null);
 
@@ -242,7 +243,7 @@ public class Screen extends JFrame implements KeyListener {
         this.add(intakeProgrammingWindow);
         this.intakeProgrammingWindow.setVisible(false);
 
-        shooterProgrammingWindow = new Window("", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        shooterProgrammingWindow = new Window("shooterProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(shooterProgrammingWindow);
         this.shooterProgrammingWindow.setVisible(false);
 
