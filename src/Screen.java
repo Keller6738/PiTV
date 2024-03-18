@@ -4,10 +4,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import static java.awt.Font.BOLD;
 import static java.awt.Image.SCALE_SMOOTH;
-import static java.awt.event.KeyEvent.VK_F4;
+import static java.awt.event.KeyEvent.*;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.RIGHT;
 
@@ -40,7 +41,7 @@ public class Screen extends JFrame implements KeyListener {
 
 
     //windows
-    private Window mainWindow;
+    private final Window mainWindow;
 
     //mechanics
     private final Window modelingWindow;
@@ -75,7 +76,7 @@ public class Screen extends JFrame implements KeyListener {
     private final Window shiba;
     private final Window groupExposure;
     private final Window distributionFIRSTandSTEM;
-    private final Window OpeningFRCgroups;
+    private final Window openingFRCgroups;
     private final Window swordOfPeace;
     private final Window volunteeringWithDisplacedFamilies;
 
@@ -101,6 +102,9 @@ public class Screen extends JFrame implements KeyListener {
 
     private static final int WINDOWS_X = 340;
     private static final int WINDOWS_Y = 120;
+
+    private static Random rnd = new Random();
+    private Timer switchTimer = new Timer(10000, e -> autoChangeMode());
 
     public Screen() {
         this.currentWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
@@ -151,8 +155,8 @@ public class Screen extends JFrame implements KeyListener {
         this.hourLabel = new JLabel();
         this.hourLabel.setFont(new Font("", BOLD, 60));
 
-        Timer timer = new Timer(1000, e -> updateTime());
-        timer.start();
+        Timer hourTimer = new Timer(1000, e -> updateTime());
+        hourTimer.start();
 
         this.hourPanel.add(hourLabel);
 
@@ -251,7 +255,7 @@ public class Screen extends JFrame implements KeyListener {
         this.add(climberProgrammingWindow);
         this.climberProgrammingWindow.setVisible(false);
 
-        autonomousWindow = new Window("Auto.gif",  WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        autonomousWindow = new Window("Auto.gif", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
         this.add(autonomousWindow);
         this.autonomousWindow.setVisible(false);
         //2024 V
@@ -287,9 +291,9 @@ public class Screen extends JFrame implements KeyListener {
         volunteeringWithDisplacedFamilies = new Window("volunteeringWithDisplacedFamilies.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
         this.add(volunteeringWithDisplacedFamilies);
         this.volunteeringWithDisplacedFamilies.setVisible(false);
-        OpeningFRCgroups = new Window("OpeningFRCgroups.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(OpeningFRCgroups);
-        this.OpeningFRCgroups.setVisible(false);
+        openingFRCgroups = new Window("OpeningFRCgroups.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
+        this.add(openingFRCgroups);
+        this.openingFRCgroups.setVisible(false);
         shiba = new Window("shiba.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
         this.add(shiba);
         this.shiba.setVisible(false);
@@ -336,7 +340,7 @@ public class Screen extends JFrame implements KeyListener {
                 new MyButton(() -> this.hidePrevAndShowNextWindow(shiba), "SHIBA", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 52),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(groupExposure), String.format("<html>%sgroup<br>%sexposure</html>", this.indent(13), this.indent(10)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(distributionFIRSTandSTEM), String.format("<html>%sdistribution<br>%sFIRST and<br>%sSTEM</html>", this.indent(8), this.indent(9), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(OpeningFRCgroups), String.format("<html>%sopening<br>%sFRC<br>%sgroups</html>", this.indent(11), this.indent(15), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(openingFRCgroups), String.format("<html>%sopening<br>%sFRC<br>%sgroups</html>", this.indent(11), this.indent(15), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(swordOfPeace), String.format("<html>%sSWORD<br>%sof<br>%sPEACE</html>", this.indent(12), this.indent(17), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies), String.format("<html>%svolunteering<br>%swith<br>%sdisplaced<br>%sfamilies</html>", this.indent(7), this.indent(15), this.indent(10), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0)
         );
@@ -411,14 +415,109 @@ public class Screen extends JFrame implements KeyListener {
         this.hourLabel.setForeground(Colors.YELLOW.color);
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == VK_F4) System.exit(0);
+    private void autoChangeMode() {
+        switch (rnd.nextInt(4)) {
+            case 0: {
+                hidePrevAndShowNextMenu(mechanicsMenu);
+                switch (rnd.nextInt(6)) {
+                    case 0:
+                        hidePrevAndShowNextWindow(modelingWindow);
+                    case 1:
+                        hidePrevAndShowNextWindow(productionWindow);
+                    case 2:
+                        hidePrevAndShowNextWindow(swerveMechanicsWindow);
+                    case 3:
+                        hidePrevAndShowNextWindow(intakeMechanicsWindow);
+                    case 4:
+                        hidePrevAndShowNextWindow(shooterMechanicsWindow);
+                    case 5:
+                        hidePrevAndShowNextWindow(intakeMechanicsWindow);
+                }
+            }
+            case 1: {
+                hidePrevAndShowNextMenu(electronicsMenu);
+                switch (rnd.nextInt(6)) {
+                    case 0:
+                        hidePrevAndShowNextWindow(mainElectronicsWindow);
+                    case 1:
+                        hidePrevAndShowNextWindow(swerveElectronicsWindow);
+                    case 2:
+                        hidePrevAndShowNextWindow(intakeElectronicsWindow);
+                    case 3:
+                        hidePrevAndShowNextWindow(shooterElectronicsWindow);
+                    case 4:
+                        hidePrevAndShowNextWindow(wiringWindow);
+                    case 5:
+                        hidePrevAndShowNextWindow(monitoringWindow);
+                }
+            }
+            case 2: {
+                hidePrevAndShowNextMenu(programmingMenu);
+                switch (rnd.nextInt(6)) {
+                    case 0:
+                        hidePrevAndShowNextWindow(swerveProgrammingWindow);
+                    case 1:
+                        hidePrevAndShowNextWindow(intakeProgrammingWindow);
+                    case 2:
+                        hidePrevAndShowNextWindow(shooterProgrammingWindow);
+                    case 3:
+                        hidePrevAndShowNextWindow(climberProgrammingWindow);
+                    case 4:
+                        hidePrevAndShowNextWindow(autonomousWindow);
+                    case 5:
+                        hidePrevAndShowNextWindow(imageProcessingWindow);
+                }
+            }
+            case 3: {
+                hidePrevAndShowNextMenu(mechanicsMenu);
+                switch (rnd.nextInt(11)) {
+                    case 0:
+                        hidePrevAndShowNextWindow(javaCourse);
+                    case 1:
+                        hidePrevAndShowNextWindow(mentorsCourseToFLL);
+                    case 2:
+                        hidePrevAndShowNextWindow(babaDa);
+                    case 3:
+                        hidePrevAndShowNextWindow(helpingFLLGroups);
+                    case 4:
+                        hidePrevAndShowNextWindow(volunteeringInFIRST);
+                    case 5:
+                        hidePrevAndShowNextWindow(shiba);
+                    case 6:
+                        hidePrevAndShowNextWindow(groupExposure);
+                    case 7:
+                        hidePrevAndShowNextWindow(distributionFIRSTandSTEM);
+                    case 8:
+                        hidePrevAndShowNextWindow(openingFRCgroups);
+                    case 9:
+                        hidePrevAndShowNextWindow(swordOfPeace);
+                    case 10:
+                        hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies);
+                }
+            }
+        }
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyPressed(KeyEvent e) {
+       switch (e.getKeyCode()) {
+           case VK_F4 -> System.exit(0);
+           /*case VK_A -> {
+               switchTimer.start();
+               System.out.println("start");
+           }
+           case VK_S -> {
+               switchTimer.stop();
+               System.out.println("stop");
+           }*/
+       }
+    }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
 }
