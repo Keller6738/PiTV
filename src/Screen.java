@@ -1,14 +1,17 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
 import static java.awt.Font.BOLD;
 import static java.awt.Image.SCALE_SMOOTH;
-import static java.awt.event.KeyEvent.*;
+import static java.awt.event.KeyEvent.VK_F4;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.RIGHT;
 
@@ -255,7 +258,7 @@ public class Screen extends JFrame implements KeyListener {
         this.add(climberProgrammingWindow);
         this.climberProgrammingWindow.setVisible(false);
 
-        autonomousWindow = new Window("Auto.gif", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
+        autonomousWindow = new Window("Auto.gif", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 2);
         this.add(autonomousWindow);
         this.autonomousWindow.setVisible(false);
         //2024 V
@@ -403,6 +406,30 @@ public class Screen extends JFrame implements KeyListener {
         Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, SCALE_SMOOTH);
 
         return new ImageIcon(scaledImage);
+    }
+
+    private static ImageIcon scaleGifIcon(ImageIcon originalIcon, int newWidth, int newHeight) {
+        try {
+            Image image = originalIcon.getImage();
+            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = bufferedImage.createGraphics();
+            g2.drawImage(image, 0, 0, null);
+            g2.dispose();
+
+            BufferedImage scaledImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = scaledImage.createGraphics();
+            g.drawImage(bufferedImage, 0, 0, newWidth, newHeight, null);
+            g.dispose();
+
+            // Save scaled image frames to a new GIF
+            File outputfile = new File("scaled.gif"); // Change the file name as needed
+            ImageIO.write(scaledImage, "gif", outputfile);
+
+            return new ImageIcon(outputfile.getAbsolutePath());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public String indent(int numberOfSpaces) {
