@@ -5,9 +5,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import static java.awt.Image.SCALE_SMOOTH;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 public class Window extends JPanel {
-
     private final JLabel imageLabel;
     private ImageIcon imageIcon;
 
@@ -56,12 +56,12 @@ public class Window extends JPanel {
     private ImageIcon scaleGifIcon(ImageIcon originalIcon, double scaleFactor) {
         try {
             Image image = originalIcon.getImage();
-            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), TYPE_INT_ARGB);
             Graphics2D g2 = bufferedImage.createGraphics();
             g2.drawImage(image, 0, 0, null);
             g2.dispose();
 
-            BufferedImage scaledImage = new BufferedImage((int) (this.imageIcon.getIconWidth() * scaleFactor), (int) (this.imageIcon.getIconWidth() * scaleFactor), BufferedImage.TYPE_INT_ARGB);
+            BufferedImage scaledImage = new BufferedImage((int) (this.imageIcon.getIconWidth() * scaleFactor), (int) (this.imageIcon.getIconWidth() * scaleFactor), TYPE_INT_ARGB);
             Graphics2D g = scaledImage.createGraphics();
             g.drawImage(bufferedImage, 0, 0, (int) (this.imageIcon.getIconWidth() * scaleFactor), (int) (this.imageIcon.getIconWidth() * scaleFactor), null);
             g.dispose();

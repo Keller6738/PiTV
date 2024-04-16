@@ -8,10 +8,12 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.awt.Font.BOLD;
 import static java.awt.Image.SCALE_SMOOTH;
-import static java.awt.event.KeyEvent.VK_F4;
+import static java.awt.event.KeyEvent.*;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.RIGHT;
 
@@ -35,12 +37,12 @@ public class Screen extends JFrame implements KeyListener {
     private final ImageIcon leftSideIcon;
 
     //menus
-    private final Menu stuffMenu;
-    private final Menu mechanicsMenu;
-    private final Menu electronicsMenu;
-    private final Menu programmingMenu;
-    private final Menu communityMenu;
-    private Menu currentMenu;
+    private final MainMenu stuffMenu;
+    private final MainMenu mechanicsMenu;
+    private final MainMenu electronicsMenu;
+    private final MainMenu programmingMenu;
+    private final MainMenu communityMenu;
+    private MainMenu currentMenu;
 
 
     //windows
@@ -106,8 +108,9 @@ public class Screen extends JFrame implements KeyListener {
     private static final int WINDOWS_X = 340;
     private static final int WINDOWS_Y = 120;
 
-    private static Random rnd = new Random();
-    private Timer switchTimer = new Timer(10000, e -> autoChangeMode());
+    private Timer switchTimer = new Timer();
+    private TimerTask autoSwitchTask;
+    private boolean isAutoSwitch = false;
 
     public Screen() {
         this.currentWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
@@ -158,8 +161,14 @@ public class Screen extends JFrame implements KeyListener {
         this.hourLabel = new JLabel();
         this.hourLabel.setFont(new Font("", BOLD, 60));
 
-        Timer hourTimer = new Timer(1000, e -> updateTime());
-        hourTimer.start();
+        Timer hourTimer = new Timer();
+        TimerTask hourTask = new TimerTask() {
+            @Override
+            public void run() {
+                updateTime();
+            }
+        };
+        hourTimer.schedule(hourTask, 0, 1000);
 
         this.hourPanel.add(hourLabel);
 
@@ -302,70 +311,70 @@ public class Screen extends JFrame implements KeyListener {
         this.shiba.setVisible(false);
 
         //menus
-        this.currentMenu = new Menu(0, 0, 0, 0, 0, 0);
+        this.currentMenu = new MainMenu(0, 0, 0, 0, 0, 0);
 
-        this.mechanicsMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(modelingWindow), "Modeling", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 38),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(productionWindow), "Production", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 33),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveMechanicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 45),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeMechanicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 51),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterMechanicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 43),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(climberMechanicsWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 45)
+        this.mechanicsMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
+                new MyButton(() -> this.hidePrevAndShowNextWindow(modelingWindow), "Modeling", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 38, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(productionWindow), "Production", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 33, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveMechanicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 45, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeMechanicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 51, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterMechanicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 43, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(climberMechanicsWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 45, false)
         );
         this.add(mechanicsMenu);
 
-        this.electronicsMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mainElectronicsWindow), String.format("<html>%smain<br>%selectronics</html>", this.indent(10), this.indent(5)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 459, 15),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveElectronicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 45),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeElectronicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 293, 51),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterElectronicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 376, 43),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(wiringWindow), "Wiring", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 542, 50),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(monitoringWindow), "Sensors", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 659, 45)
+        this.electronicsMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
+                new MyButton(() -> this.hidePrevAndShowNextWindow(mainElectronicsWindow), String.format("<html>%smain<br>%selectronics</html>", this.indent(10), this.indent(5)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 459, 15, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveElectronicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 45, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeElectronicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 293, 51, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterElectronicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 376, 43, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(wiringWindow), "Wiring", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 542, 50, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(monitoringWindow), "Sensors", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 659, 45, false)
         );
         this.add(electronicsMenu);
 
-        this.programmingMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveProgrammingWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 45),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeProgrammingWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 51),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterProgrammingWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 43),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(climberProgrammingWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 45),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(autonomousWindow), "Autonomous", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 29),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "<html>&nbsp;&nbsp;&nbsp;&nbsp;image<br>processing</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 32)
+        this.programmingMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
+                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveProgrammingWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 45, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeProgrammingWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 51, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterProgrammingWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 43, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(climberProgrammingWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 45, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(autonomousWindow), "Autonomous", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 29, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "<html>&nbsp;&nbsp;&nbsp;&nbsp;image<br>processing</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 32, false)
         );
         this.add(programmingMenu);
 
-        this.communityMenu = new Menu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT + this.rightSidePanel.getHeight(), DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(javaCourse), String.format("<html>%sjava<br>%scourse</html>", this.indent(14), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mentorsCourseToFLL), String.format("<html>%smentors<br>%scourse<br>%sto FLL</html>", this.indent(11), this.indent(12), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(babaDa), "בבא-דע", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 52),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(helpingFLLGroups), String.format("<html>%shelping to<br>%sFLL groups</html>", this.indent(9), this.indent(8)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringInFIRST), String.format("<html>%svolunteering<br>%sin FIRST</html>", this.indent(7), this.indent(11)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shiba), "SHIBA", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 52),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(groupExposure), String.format("<html>%sgroup<br>%sexposure</html>", this.indent(13), this.indent(10)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(distributionFIRSTandSTEM), String.format("<html>%sdistribution<br>%sFIRST and<br>%sSTEM</html>", this.indent(8), this.indent(9), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(openingFRCgroups), String.format("<html>%sopening<br>%sFRC<br>%sgroups</html>", this.indent(11), this.indent(15), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swordOfPeace), String.format("<html>%sSWORD<br>%sof<br>%sPEACE</html>", this.indent(12), this.indent(17), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies), String.format("<html>%svolunteering<br>%swith<br>%sdisplaced<br>%sfamilies</html>", this.indent(7), this.indent(15), this.indent(10), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0)
+        this.communityMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT + this.rightSidePanel.getHeight(), DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
+                new MyButton(() -> this.hidePrevAndShowNextWindow(javaCourse), String.format("<html>%sjava<br>%scourse</html>", this.indent(14), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(mentorsCourseToFLL), String.format("<html>%smentors<br>%scourse<br>%sto FLL</html>", this.indent(11), this.indent(12), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(babaDa), "בבא-דע", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 52, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(helpingFLLGroups), /*String.format("<html>%shelping to<br>%sFLL groups</html>", this.indent(9), this.indent(8)),*/ DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, false, "helping to", "FLL groups"),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringInFIRST), String.format("<html>%svolunteering<br>%sin FIRST</html>", this.indent(7), this.indent(11)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(shiba), "SHIBA", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 52, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(groupExposure), String.format("<html>%sgroup<br>%sexposure</html>", this.indent(13), this.indent(10)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(distributionFIRSTandSTEM), String.format("<html>%sdistribution<br>%sFIRST and<br>%sSTEM</html>", this.indent(8), this.indent(9), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(openingFRCgroups), String.format("<html>%sopening<br>%sFRC<br>%sgroups</html>", this.indent(11), this.indent(15), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(swordOfPeace), String.format("<html>%sSWORD<br>%sof<br>%sPEACE</html>", this.indent(12), this.indent(17), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies), String.format("<html>%svolunteering<br>%swith<br>%sdisplaced<br>%sfamilies</html>", this.indent(7), this.indent(15), this.indent(10), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false)
         );
         this.add(communityMenu);
 
-        this.stuffMenu = new Menu(630, 100, 1280, 10, 5, 7,
+        this.stuffMenu = new MainMenu(630, 100, 1280, 10, 5, 7,
                 new MyButton(() -> {
                     if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.mechanicsMenu);
-                }, "Mechanics", 150, 80, 557, 20, 24, 20),
+                }, "Mechanics", 150, 80, 557, 20, 24, true),
                 new MyButton(() -> {
                     if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.electronicsMenu);
-                }, "Electronics", 150, 80, 662, 20, 21, 20),
+                }, "Electronics", 150, 80, 662, 20, 21, true),
                 new MyButton(() -> {
                     if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.programmingMenu);
-                }, "Programming", 150, 80, 767, 20, 11, 20),
+                }, "Programming", 150, 80, 767, 20, 11, true),
                 new MyButton(() -> {
                     this.hidePrevAndShowNextMenu(this.communityMenu);
                     this.remove(rightSidePanel);
-                }, "Community", 150, 80, 872, 20, 20, 20)
+                }, "Community", 150, 80, 872, 20, 20, true)
         );
         this.add(stuffMenu);
 
@@ -382,7 +391,7 @@ public class Screen extends JFrame implements KeyListener {
         this.setVisible(true);
     }
 
-    private void hidePrevAndShowNextMenu(Menu menu) {
+    private void hidePrevAndShowNextMenu(MainMenu menu) {
         this.currentWindow.setVisible(false);
         this.add(mainWindow);
         this.currentMenu.setVisible(false);
@@ -442,101 +451,120 @@ public class Screen extends JFrame implements KeyListener {
         this.hourLabel.setForeground(Colors.YELLOW.color);
     }
 
-    private void autoChangeMode() {
-        switch (rnd.nextInt(4)) {
-            case 0: {
-                hidePrevAndShowNextMenu(mechanicsMenu);
-                switch (rnd.nextInt(6)) {
-                    case 0:
-                        hidePrevAndShowNextWindow(modelingWindow);
-                    case 1:
-                        hidePrevAndShowNextWindow(productionWindow);
-                    case 2:
-                        hidePrevAndShowNextWindow(swerveMechanicsWindow);
-                    case 3:
-                        hidePrevAndShowNextWindow(intakeMechanicsWindow);
-                    case 4:
-                        hidePrevAndShowNextWindow(shooterMechanicsWindow);
-                    case 5:
-                        hidePrevAndShowNextWindow(intakeMechanicsWindow);
-                }
+    private void autoSwitchMode() {
+        autoSwitchTask = new TimerTask() {
+            @Override
+            public void run() {
+                /*int rand = new Random().nextInt(4);
+                System.out.println(rand);
+                switch (rand) {
+                    case 0: {
+                        hidePrevAndShowNextMenu(mechanicsMenu);
+                        rand = new Random().nextInt(6);
+                        System.out.println(rand);
+                        switch (rand) {
+                            case 0:
+                                hidePrevAndShowNextWindow(modelingWindow);
+                            case 1:
+                                hidePrevAndShowNextWindow(productionWindow);
+                            case 2:
+                                hidePrevAndShowNextWindow(swerveMechanicsWindow);
+                            case 3:
+                                hidePrevAndShowNextWindow(intakeMechanicsWindow);
+                            case 4:
+                                hidePrevAndShowNextWindow(shooterMechanicsWindow);
+                            case 5:
+                                hidePrevAndShowNextWindow(intakeMechanicsWindow);
+                        }
+                    }
+                    case 1: {
+                        hidePrevAndShowNextMenu(electronicsMenu);
+                        rand = new Random().nextInt(6);
+                        System.out.println(rand);
+                        switch (rand) {
+                            case 0:
+                                hidePrevAndShowNextWindow(mainElectronicsWindow);
+                            case 1:
+                                hidePrevAndShowNextWindow(swerveElectronicsWindow);
+                            case 2:
+                                hidePrevAndShowNextWindow(intakeElectronicsWindow);
+                            case 3:
+                                hidePrevAndShowNextWindow(shooterElectronicsWindow);
+                            case 4:
+                                hidePrevAndShowNextWindow(wiringWindow);
+                            case 5:
+                                hidePrevAndShowNextWindow(monitoringWindow);
+                        }
+                    }
+                    case 2: {
+                        hidePrevAndShowNextMenu(programmingMenu);
+                        rand = new Random().nextInt(6);
+                        System.out.println(rand);
+                        switch (rand) {
+                            case 0:
+                                hidePrevAndShowNextWindow(swerveProgrammingWindow);
+                            case 1:
+                                hidePrevAndShowNextWindow(intakeProgrammingWindow);
+                            case 2:
+                                hidePrevAndShowNextWindow(shooterProgrammingWindow);
+                            case 3:
+                                hidePrevAndShowNextWindow(climberProgrammingWindow);
+                            case 4:
+                                hidePrevAndShowNextWindow(autonomousWindow);
+                            case 5:
+                                hidePrevAndShowNextWindow(imageProcessingWindow);
+                        }
+                    }
+                    case 3: {
+                        hidePrevAndShowNextMenu(mechanicsMenu);
+                        rand = new Random().nextInt(11);
+                        System.out.println(rand);
+                        switch (rand) {
+                            case 0:
+                                hidePrevAndShowNextWindow(javaCourse);
+                            case 1:
+                                hidePrevAndShowNextWindow(mentorsCourseToFLL);
+                            case 2:
+                                hidePrevAndShowNextWindow(babaDa);
+                            case 3:
+                                hidePrevAndShowNextWindow(helpingFLLGroups);
+                            case 4:
+                                hidePrevAndShowNextWindow(volunteeringInFIRST);
+                            case 5:
+                                hidePrevAndShowNextWindow(shiba);
+                            case 6:
+                                hidePrevAndShowNextWindow(groupExposure);
+                            case 7:
+                                hidePrevAndShowNextWindow(distributionFIRSTandSTEM);
+                            case 8:
+                                hidePrevAndShowNextWindow(openingFRCgroups);
+                            case 9:
+                                hidePrevAndShowNextWindow(swordOfPeace);
+                            case 10:
+                                hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies);
+                        }
+                    }
+                }*/
+                int rand = new Random().nextInt(stuffMenu.getNumButtons());
+
+                rand = new Random().nextInt(currentMenu.getNumButtons());
             }
-            case 1: {
-                hidePrevAndShowNextMenu(electronicsMenu);
-                switch (rnd.nextInt(6)) {
-                    case 0:
-                        hidePrevAndShowNextWindow(mainElectronicsWindow);
-                    case 1:
-                        hidePrevAndShowNextWindow(swerveElectronicsWindow);
-                    case 2:
-                        hidePrevAndShowNextWindow(intakeElectronicsWindow);
-                    case 3:
-                        hidePrevAndShowNextWindow(shooterElectronicsWindow);
-                    case 4:
-                        hidePrevAndShowNextWindow(wiringWindow);
-                    case 5:
-                        hidePrevAndShowNextWindow(monitoringWindow);
-                }
-            }
-            case 2: {
-                hidePrevAndShowNextMenu(programmingMenu);
-                switch (rnd.nextInt(6)) {
-                    case 0:
-                        hidePrevAndShowNextWindow(swerveProgrammingWindow);
-                    case 1:
-                        hidePrevAndShowNextWindow(intakeProgrammingWindow);
-                    case 2:
-                        hidePrevAndShowNextWindow(shooterProgrammingWindow);
-                    case 3:
-                        hidePrevAndShowNextWindow(climberProgrammingWindow);
-                    case 4:
-                        hidePrevAndShowNextWindow(autonomousWindow);
-                    case 5:
-                        hidePrevAndShowNextWindow(imageProcessingWindow);
-                }
-            }
-            case 3: {
-                hidePrevAndShowNextMenu(mechanicsMenu);
-                switch (rnd.nextInt(11)) {
-                    case 0:
-                        hidePrevAndShowNextWindow(javaCourse);
-                    case 1:
-                        hidePrevAndShowNextWindow(mentorsCourseToFLL);
-                    case 2:
-                        hidePrevAndShowNextWindow(babaDa);
-                    case 3:
-                        hidePrevAndShowNextWindow(helpingFLLGroups);
-                    case 4:
-                        hidePrevAndShowNextWindow(volunteeringInFIRST);
-                    case 5:
-                        hidePrevAndShowNextWindow(shiba);
-                    case 6:
-                        hidePrevAndShowNextWindow(groupExposure);
-                    case 7:
-                        hidePrevAndShowNextWindow(distributionFIRSTandSTEM);
-                    case 8:
-                        hidePrevAndShowNextWindow(openingFRCgroups);
-                    case 9:
-                        hidePrevAndShowNextWindow(swordOfPeace);
-                    case 10:
-                        hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies);
-                }
-            }
-        }
+        };
+        switchTimer.schedule(autoSwitchTask, 0, 5000);
+        isAutoSwitch = true;
+    }
+
+    private void stopAutoSwitch() {
+        autoSwitchTask.cancel();
+        isAutoSwitch = false;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
        switch (e.getKeyCode()) {
            case VK_F4 -> System.exit(0);
-           /*case VK_A -> {
-               switchTimer.start();
-               System.out.println("start");
-           }
-           case VK_S -> {
-               switchTimer.stop();
-               System.out.println("stop");
-           }*/
+           case VK_A -> autoSwitchMode();
+           case VK_S -> stopAutoSwitch();
        }
     }
 

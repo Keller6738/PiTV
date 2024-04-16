@@ -1,23 +1,11 @@
 import javax.swing.*;
-import java.awt.*;
-
-import static java.awt.FlowLayout.CENTER;
-
 
 public class Menu extends JPanel {
+    /*private final MyButton selfButton;
+    private final MyButton[] windowsButtons;
+    private final Window[] windows;
 
-    public Menu(int width, int height, int x, int y,int hGap, int vGap, MyButton... buttons) {
-        this.setLayout(new FlowLayout(CENTER, hGap, vGap));
+    public Menu(String selfText, int selfTextX, String[] windowsTexts, ) {
 
-        this.setBackground(Colors.BLUE.color);
-        this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
-
-        for (MyButton button : buttons) {
-            button.setPreferredSize(new Dimension(button.getWidth(), button.getHeight()));
-            this.add(button);
-        }
-
-        this.setBounds(x, y, width, height);
-    }
- }
-
+    }*/
+}
