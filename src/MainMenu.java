@@ -5,35 +5,29 @@ import static java.awt.FlowLayout.CENTER;
 
 
 public class MainMenu extends JPanel {
-//    private final Menu[] menus;
-    private final MyButton[] buttons;
+     private final Menu[] menus;
 
-    public MainMenu(int width, int height, int x, int y, int hGap, int vGap, MyButton... buttons) {
-        this.setLayout(new FlowLayout(CENTER, hGap, vGap));
+    private static final int MENU_WIDTH = 630;
+    private static final int MENU_HEIGHT = 100;
+    private static final int MENU_X = 1280;
+    private static final int MENU_Y = 10;
 
-        this.setBackground(Colors.BLUE.color);
-        this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
+    private static final int H_GAP = 5;
+    private static final int V_GAP = 7;
 
-        this.buttons = new MyButton[buttons.length];
-        for (int i = 0; i < buttons.length; i++) {
-            this.buttons[i] = buttons[i];
-            this.buttons[i].setPreferredSize(new Dimension(this.buttons[i].getWidth(), this.buttons[i].getHeight()));
-            this.add(this.buttons[i]);
-        }
+     public MainMenu(Menu... menus) {
+         this.menus = new Menu[menus.length];
 
-        this.setBounds(x, y, width, height);
-    }
+         for (int i = 0; i < this.menus.length; i++) {
+             this.menus[i] = menus[i];
 
-    public int getNumButtons() {
-        return this.buttons.length;
-    }
+             this.add(this.menus[i].getSelfButton());
+         }
+             this.setLayout(new FlowLayout(CENTER, H_GAP, V_GAP));
 
-    public MyButton getButton(int place) {
-        return this.buttons[place];
-    }
+             this.setBackground(Colors.BLUE.color);
+             this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
 
-    public void runButton(int place) {
-        this.buttons[place].toRun();
-    }
+             this.setBounds(MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT);
+     }
 }
-

@@ -8,30 +8,33 @@ import static java.awt.Image.SCALE_SMOOTH;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 public class Window extends JPanel {
+    private final MyButton selfButton;
+    private int selfButtonY = 0;
     private final JLabel imageLabel;
     private ImageIcon imageIcon;
 
-    public Window(String fileName, int width, int height, int x, int y) {
+    private static final int SELF_BUTTON_WIDTH = 150;
+    private static final int SELF_BUTTON_HEIGHT = 80;
+    private static final int SELF_BUTTON_X = 823;
 
-        this.imageLabel = new JLabel();
-        this.imageIcon = new ImageIcon(fileName);
-        this.imageLabel.setIcon(imageIcon);
+    private static final int WINDOW_WIDTH = 1400;
+    private static final int WINDOW_HEIGHT = 950;
 
-        this.setBounds(x, y, width, height);
-        this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
+    private static final int WINDOW_X = 340;
+    private static final int WINDOW_Y = 120;
 
-        this.setBackground(Colors.BLUE.color);
-
-        this.add(imageLabel);
+    public Window(String fileName, String... buttonText) {
+        this(fileName, 1, buttonText);
     }
 
-    public Window(String fileName, int width, int height, int x, int y, double scaleFactor) {
+    public Window(String fileName, double scaleFactor, String... buttonText) {
+        this.selfButton = new MyButton(() -> {}, SELF_BUTTON_WIDTH, SELF_BUTTON_HEIGHT, SELF_BUTTON_X, this.selfButtonY,false, buttonText);
 
         this.imageLabel = new JLabel();
         this.imageIcon = new ImageIcon(fileName);
         this.imageLabel.setIcon(imageIcon);
 
-        this.setBounds(x, y, width, height);
+        this.setBounds(WINDOW_X, WINDOW_Y, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
 
         this.setBackground(Colors.BLUE.color);
@@ -40,6 +43,14 @@ public class Window extends JPanel {
 
         if (isGif(imageIcon)) this.imageIcon = scaleGifIcon(this.imageIcon, scaleFactor);
         else this.imageIcon = scaleImageIcon(this.imageIcon, scaleFactor);
+    }
+
+    public MyButton getSelfButton() {
+        return selfButton;
+    }
+
+    public void setSelfButtonY(int selfButtonY) {
+        this.selfButtonY = selfButtonY;
     }
 
     private ImageIcon scaleImageIcon(ImageIcon originalIcon, double scaleFactor) {

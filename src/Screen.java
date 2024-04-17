@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,19 +35,18 @@ public class Screen extends JFrame implements KeyListener {
     private final JLabel leftSideLabel;
     private final ImageIcon leftSideIcon;
 
-    //menus
+    /*//menus
     private final MainMenu stuffMenu;
     private final MainMenu mechanicsMenu;
     private final MainMenu electronicsMenu;
     private final MainMenu programmingMenu;
-    private final MainMenu communityMenu;
+    private final MainMenu communityMenu;*/
     private MainMenu currentMenu;
-
 
     //windows
     private final Window mainWindow;
 
-    //mechanics
+    /*//mechanics
     private final Window modelingWindow;
     private final Window productionWindow;
     private final Window swerveMechanicsWindow;
@@ -83,7 +81,7 @@ public class Screen extends JFrame implements KeyListener {
     private final Window distributionFIRSTandSTEM;
     private final Window openingFRCgroups;
     private final Window swordOfPeace;
-    private final Window volunteeringWithDisplacedFamilies;
+    private final Window volunteeringWithDisplacedFamilies;*/
 
     private Window currentWindow;
 
@@ -113,7 +111,7 @@ public class Screen extends JFrame implements KeyListener {
     private boolean isAutoSwitch = false;
 
     public Screen() {
-        this.currentWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
+        this.currentWindow = new Window("goodLuck.png", 1.2);
         this.add(currentWindow);
         //design panels
         //excalibur panel
@@ -135,7 +133,7 @@ public class Screen extends JFrame implements KeyListener {
         this.excaliburPanel.setBounds(10, 10, 800, 100);
         this.add(excaliburPanel);
 
-        this.mainWindow = new Window("goodLuck.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
+        this.mainWindow = new Window("goodLuck.png");
         this.add(mainWindow);
 
         //right side panel
@@ -198,7 +196,7 @@ public class Screen extends JFrame implements KeyListener {
         this.getContentPane().setBackground(Colors.BLUE.color);
         this.setLayout(null);
 
-        //windows
+       /* //windows
 
         //mechanics
         modelingWindow = new Window("modeling.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
@@ -308,12 +306,12 @@ public class Screen extends JFrame implements KeyListener {
         this.openingFRCgroups.setVisible(false);
         shiba = new Window("shiba.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
         this.add(shiba);
-        this.shiba.setVisible(false);
+        this.shiba.setVisible(false);*/
 
         //menus
-        this.currentMenu = new MainMenu(0, 0, 0, 0, 0, 0);
+        this.currentMenu = new MainMenu();
 
-        this.mechanicsMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
+        /*this.mechanicsMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
                 new MyButton(() -> this.hidePrevAndShowNextWindow(modelingWindow), "Modeling", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 38, false),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(productionWindow), "Production", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 33, false),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(swerveMechanicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 45, false),
@@ -324,7 +322,7 @@ public class Screen extends JFrame implements KeyListener {
         this.add(mechanicsMenu);
 
         this.electronicsMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mainElectronicsWindow), String.format("<html>%smain<br>%selectronics</html>", this.indent(10), this.indent(5)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 459, 15, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(mainElectronicsWindow), /*String.format("<html>%smain<br>%selectronics</html>", this.indent(10), this.indent(5)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 459, false, "main", "electronics"),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(swerveElectronicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 45, false),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(intakeElectronicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 293, 51, false),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(shooterElectronicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 376, 43, false),
@@ -344,21 +342,21 @@ public class Screen extends JFrame implements KeyListener {
         this.add(programmingMenu);
 
         this.communityMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT + this.rightSidePanel.getHeight(), DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(javaCourse), String.format("<html>%sjava<br>%scourse</html>", this.indent(14), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 0, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mentorsCourseToFLL), String.format("<html>%smentors<br>%scourse<br>%sto FLL</html>", this.indent(11), this.indent(12), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(javaCourse), /*String.format("<html>%sjava<br>%scourse</html>", this.indent(14), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, false, "java", "course"),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(mentorsCourseToFLL), /*String.format("<html>%smentors<br>%scourse<br>%sto FLL</html>", this.indent(11), this.indent(12), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, false, "mentors", "course", "to FLL"),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(babaDa), "בבא-דע", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 52, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(helpingFLLGroups), /*String.format("<html>%shelping to<br>%sFLL groups</html>", this.indent(9), this.indent(8)),*/ DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, false, "helping to", "FLL groups"),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringInFIRST), String.format("<html>%svolunteering<br>%sin FIRST</html>", this.indent(7), this.indent(11)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(helpingFLLGroups), /*String.format("<html>%shelping to<br>%sFLL groups</html>", this.indent(9), this.indent(8)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, false, "helping to", "FLL groups"),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringInFIRST), /*String.format("<html>%svolunteering<br>%sin FIRST</html>", this.indent(7), this.indent(11)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, false, "volunteering", "in FIRST"),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(shiba), "SHIBA", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 52, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(groupExposure), String.format("<html>%sgroup<br>%sexposure</html>", this.indent(13), this.indent(10)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
+                new MyButton(() -> this.hidePrevAndShowNextWindow(groupExposure), /*String.format("<html>%sgroup<br>%sexposure</html>", this.indent(13), this.indent(10)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, false, "group", "exposure"),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(distributionFIRSTandSTEM), String.format("<html>%sdistribution<br>%sFIRST and<br>%sSTEM</html>", this.indent(8), this.indent(9), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(openingFRCgroups), String.format("<html>%sopening<br>%sFRC<br>%sgroups</html>", this.indent(11), this.indent(15), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(swordOfPeace), String.format("<html>%sSWORD<br>%sof<br>%sPEACE</html>", this.indent(12), this.indent(17), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
                 new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies), String.format("<html>%svolunteering<br>%swith<br>%sdisplaced<br>%sfamilies</html>", this.indent(7), this.indent(15), this.indent(10), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false)
         );
-        this.add(communityMenu);
+        this.add(communityMenu);*/
 
-        this.stuffMenu = new MainMenu(630, 100, 1280, 10, 5, 7,
+        /*this.stuffMenu = new MainMenu(630, 100, 1280, 10, 5, 7,
                 new MyButton(() -> {
                     if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
                     this.hidePrevAndShowNextMenu(this.mechanicsMenu);
@@ -382,7 +380,7 @@ public class Screen extends JFrame implements KeyListener {
         mechanicsMenu.setVisible(false);
         electronicsMenu.setVisible(false);
         programmingMenu.setVisible(false);
-        communityMenu.setVisible(false);
+        communityMenu.setVisible(false);*/
 
         this.setFocusable(true);
         this.setFocusTraversalKeysEnabled(false);
@@ -545,9 +543,9 @@ public class Screen extends JFrame implements KeyListener {
                         }
                     }
                 }*/
-                int rand = new Random().nextInt(stuffMenu.getNumButtons());
+//                int rand = new Random().nextInt(stuffMenu.getNumButtons());
 
-                rand = new Random().nextInt(currentMenu.getNumButtons());
+//                rand = new Random().nextInt(currentMenu.getNumButtons());
             }
         };
         switchTimer.schedule(autoSwitchTask, 0, 5000);
