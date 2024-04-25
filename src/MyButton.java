@@ -10,6 +10,7 @@ import static java.awt.GridBagConstraints.CENTER;
 public class MyButton extends JPanel implements MouseListener {
     private final JLabel[] textLabels;
     private final Runnable run;
+    private boolean isRunning;
 
     public MyButton(Runnable run, int width, int height, int x, int y, boolean mainMenu, String... texts) {
         this.setLayout(new GridBagLayout());
@@ -51,6 +52,10 @@ public class MyButton extends JPanel implements MouseListener {
         this.addMouseListener(this);
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
     public String getText() {
         return this.textLabels[0].getText();
     }
@@ -58,6 +63,7 @@ public class MyButton extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         this.run.run();
+        this.isRunning = true;
     }
 
     @Override

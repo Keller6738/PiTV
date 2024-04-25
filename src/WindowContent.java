@@ -11,7 +11,7 @@ public class WindowContent {
 
         this.buttonText = new String[texts.length];
         Arrays.setAll(this.buttonText, i -> texts[i]);
-     }
+    }
 
     public WindowContent(String fileName, String... texts) {
         this(fileName, 1, texts);

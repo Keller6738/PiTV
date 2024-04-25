@@ -35,85 +35,21 @@ public class Screen extends JFrame implements KeyListener {
     private final JLabel leftSideLabel;
     private final ImageIcon leftSideIcon;
 
-    /*//menus
-    private final MainMenu stuffMenu;
-    private final MainMenu mechanicsMenu;
-    private final MainMenu electronicsMenu;
-    private final MainMenu programmingMenu;
-    private final MainMenu communityMenu;*/
-    private MainMenu currentMenu;
-
-    //windows
-    private final Window mainWindow;
-
-    /*//mechanics
-    private final Window modelingWindow;
-    private final Window productionWindow;
-    private final Window swerveMechanicsWindow;
-    private final Window intakeMechanicsWindow;
-    private final Window shooterMechanicsWindow;
-    private final Window climberMechanicsWindow;
-
-    //electronics
-    private final Window swerveElectronicsWindow;
-    private final Window intakeElectronicsWindow;
-    private final Window shooterElectronicsWindow;
-    private final Window mainElectronicsWindow;
-    private final Window wiringWindow;
-    private final Window monitoringWindow;
-
-    //programming
-    private final Window swerveProgrammingWindow;
-    private final Window intakeProgrammingWindow;
-    private final Window shooterProgrammingWindow;
-    private final Window climberProgrammingWindow;
-    private final Window autonomousWindow;
-    private final Window imageProcessingWindow;
-
-    //community
-    private final Window javaCourse;
-    private final Window mentorsCourseToFLL;
-    private final Window babaDa;
-    private final Window helpingFLLGroups;
-    private final Window volunteeringInFIRST;
-    private final Window shiba;
-    private final Window groupExposure;
-    private final Window distributionFIRSTandSTEM;
-    private final Window openingFRCgroups;
-    private final Window swordOfPeace;
-    private final Window volunteeringWithDisplacedFamilies;*/
-
-    private Window currentWindow;
-
-    //constants
-    private static final int DEPUTY_MENU_WIDTH = 165;
-    private static final int DEPUTY_MENU_HEIGHT = 522;
-
-    private static final int DEPUTY_MENU_X = 1745;
-    private static final int DEPUTY_MENU_Y = 120;
-
-    private static final int DEPUTY_MENU_BUTTONS_WIDTH = 150;
-    private static final int DEPUTY_MENU_BUTTONS_HEIGHT = 80;
-
-    private static final int DEPUTY_MENU_BUTTONS_X = 823;
-
-    private static final int DEPUTY_MENU_BUTTONS_H_GAP = 5;
-    private static final int DEPUTY_MENU_BUTTONS_V_GAP = 5;
-
-    private static final int WINDOWS_WIDTH = 1400;
-    private static final int WINDOWS_HEIGHT = 950;
-
-    private static final int WINDOWS_X = 340;
-    private static final int WINDOWS_Y = 120;
-
     private Timer switchTimer = new Timer();
     private TimerTask autoSwitchTask;
     private boolean isAutoSwitch = false;
 
+    //data
+    private final MainMenu mainMenu;
+
+    private final Menu mechanicsMenu;
+    private final Menu electronicsMenu;
+    private final Menu programmingMenu;
+    private final Menu communityMenu;
+
     public Screen() {
-        this.currentWindow = new Window("goodLuck.png", 1.2);
-        this.add(currentWindow);
         //design panels
+
         //excalibur panel
         this.excaliburPanel = new JPanel();
         this.excaliburIcon = new ImageIcon("excalibur6738.png");
@@ -133,8 +69,8 @@ public class Screen extends JFrame implements KeyListener {
         this.excaliburPanel.setBounds(10, 10, 800, 100);
         this.add(excaliburPanel);
 
-        this.mainWindow = new Window("goodLuck.png");
-        this.add(mainWindow);
+//        this.mainWindow = new Window("goodLuck.png");
+//        this.add(mainWindow);
 
         //right side panel
         this.rightSidePanel = new JPanel();
@@ -192,216 +128,40 @@ public class Screen extends JFrame implements KeyListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setUndecorated(true);
         this.setExtendedState(MAXIMIZED_BOTH); // 1920 * 1080
-//        this.setSize(1920, 1080);
         this.getContentPane().setBackground(Colors.BLUE.color);
         this.setLayout(null);
-
-       /* //windows
-
-        //mechanics
-        modelingWindow = new Window("modeling.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
-        this.add(modelingWindow);
-        this.modelingWindow.setVisible(false);
-
-        productionWindow = new Window("production.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
-        this.add(productionWindow);
-        this.productionWindow.setVisible(false);
-
-        swerveMechanicsWindow = new Window("swerveMechanics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
-        this.add(swerveMechanicsWindow);
-        this.swerveMechanicsWindow.setVisible(false);
-
-        intakeMechanicsWindow = new Window("intakeMechanics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
-        this.add(intakeMechanicsWindow);
-        this.intakeMechanicsWindow.setVisible(false);
-
-        shooterMechanicsWindow = new Window("shooterMechanics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
-        this.add(shooterMechanicsWindow);
-        this.shooterMechanicsWindow.setVisible(false);
-
-        climberMechanicsWindow = new Window("climberMechanics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
-        this.add(climberMechanicsWindow);
-        this.climberMechanicsWindow.setVisible(false);
-
-        //electronics
-        mainElectronicsWindow = new Window("mainElectronics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.15);
-        this.add(mainElectronicsWindow);
-        this.mainElectronicsWindow.setVisible(false);
-
-        swerveElectronicsWindow = new Window("swerveElectronics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.15);
-        this.add(swerveElectronicsWindow);
-        this.swerveElectronicsWindow.setVisible(false);
-
-        intakeElectronicsWindow = new Window("intakeElectronics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
-        this.add(intakeElectronicsWindow);
-        this.intakeElectronicsWindow.setVisible(false);
-
-        shooterElectronicsWindow = new Window("shooterElectronics.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.2);
-        this.add(shooterElectronicsWindow);
-        this.shooterElectronicsWindow.setVisible(false);
-
-        wiringWindow = new Window("wiring.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.15);
-        this.add(wiringWindow);
-        this.wiringWindow.setVisible(false);
-
-        monitoringWindow = new Window("sensors.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.add(monitoringWindow);
-        this.monitoringWindow.setVisible(false);
-
-        //programming
-        swerveProgrammingWindow = new Window("swerveProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.5);
-        this.add(swerveProgrammingWindow);
-        this.swerveProgrammingWindow.setVisible(false);
-
-        intakeProgrammingWindow = new Window("intakeProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.add(intakeProgrammingWindow);
-        this.intakeProgrammingWindow.setVisible(false);
-
-        shooterProgrammingWindow = new Window("shooterProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.1);
-        this.add(shooterProgrammingWindow);
-        this.shooterProgrammingWindow.setVisible(false);
-
-        climberProgrammingWindow = new Window("climberProgramming.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.add(climberProgrammingWindow);
-        this.climberProgrammingWindow.setVisible(false);
-
-        autonomousWindow = new Window("Auto.gif", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 2);
-        this.add(autonomousWindow);
-        this.autonomousWindow.setVisible(false);
-        //2024 V
-        imageProcessingWindow = new Window("poseEstimation.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y);
-        this.add(imageProcessingWindow);
-        this.imageProcessingWindow.setVisible(false);
-
-        //community
-        javaCourse = new Window("javaCourse.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1);
-        this.add(javaCourse);
-        this.javaCourse.setVisible(false);
-        mentorsCourseToFLL = new Window("mentorsCourse.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(mentorsCourseToFLL);
-        this.mentorsCourseToFLL.setVisible(false);
-        babaDa = new Window("babaDa.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(babaDa);
-        this.babaDa.setVisible(false);
-        helpingFLLGroups = new Window("helpingFLLGroups.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(helpingFLLGroups);
-        this.helpingFLLGroups.setVisible(false);
-        volunteeringInFIRST = new Window("volunteeringInFIRST.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(volunteeringInFIRST);
-        this.volunteeringInFIRST.setVisible(false);
-        distributionFIRSTandSTEM = new Window("distributionFIRSTandSTEM.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(distributionFIRSTandSTEM);
-        this.distributionFIRSTandSTEM.setVisible(false);
-        groupExposure = new Window("groupExposure.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(groupExposure);
-        this.groupExposure.setVisible(false);
-        swordOfPeace = new Window("swordOfPeace.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(swordOfPeace);
-        this.swordOfPeace.setVisible(false);
-        volunteeringWithDisplacedFamilies = new Window("volunteeringWithDisplacedFamilies.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(volunteeringWithDisplacedFamilies);
-        this.volunteeringWithDisplacedFamilies.setVisible(false);
-        openingFRCgroups = new Window("OpeningFRCgroups.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(openingFRCgroups);
-        this.openingFRCgroups.setVisible(false);
-        shiba = new Window("shiba.png", WINDOWS_WIDTH, WINDOWS_HEIGHT, WINDOWS_X, WINDOWS_Y, 1.33);
-        this.add(shiba);
-        this.shiba.setVisible(false);*/
-
-        //menus
-        this.currentMenu = new MainMenu();
-
-        /*this.mechanicsMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(modelingWindow), "Modeling", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 38, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(productionWindow), "Production", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 33, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveMechanicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 45, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeMechanicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 51, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterMechanicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 43, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(climberMechanicsWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 45, false)
-        );
-        this.add(mechanicsMenu);
-
-        this.electronicsMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mainElectronicsWindow), /*String.format("<html>%smain<br>%selectronics</html>", this.indent(10), this.indent(5)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 459, false, "main", "electronics"),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveElectronicsWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 45, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeElectronicsWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 293, 51, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterElectronicsWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 376, 43, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(wiringWindow), "Wiring", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 542, 50, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(monitoringWindow), "Sensors", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_X, 659, 45, false)
-        );
-        this.add(electronicsMenu);
-
-        this.programmingMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT, DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swerveProgrammingWindow), "Swerve", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, 45, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(intakeProgrammingWindow), "Intake", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, 51, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shooterProgrammingWindow), "Shooter", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 43, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(climberProgrammingWindow), "Climber", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, 45, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(autonomousWindow), "Autonomous", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, 29, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(imageProcessingWindow), "<html>&nbsp;&nbsp;&nbsp;&nbsp;image<br>processing</html>", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 32, false)
-        );
-        this.add(programmingMenu);
-
-        this.communityMenu = new MainMenu(DEPUTY_MENU_WIDTH, DEPUTY_MENU_HEIGHT + this.rightSidePanel.getHeight(), DEPUTY_MENU_X, DEPUTY_MENU_Y, DEPUTY_MENU_BUTTONS_H_GAP, DEPUTY_MENU_BUTTONS_V_GAP,
-                new MyButton(() -> this.hidePrevAndShowNextWindow(javaCourse), /*String.format("<html>%sjava<br>%scourse</html>", this.indent(14), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 127, false, "java", "course"),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(mentorsCourseToFLL), /*String.format("<html>%smentors<br>%scourse<br>%sto FLL</html>", this.indent(11), this.indent(12), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 293, false, "mentors", "course", "to FLL"),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(babaDa), "בבא-דע", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 376, 52, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(helpingFLLGroups), /*String.format("<html>%shelping to<br>%sFLL groups</html>", this.indent(9), this.indent(8)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 459, false, "helping to", "FLL groups"),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringInFIRST), /*String.format("<html>%svolunteering<br>%sin FIRST</html>", this.indent(7), this.indent(11)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 542, false, "volunteering", "in FIRST"),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(shiba), "SHIBA", DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 659, 52, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(groupExposure), /*String.format("<html>%sgroup<br>%sexposure</html>", this.indent(13), this.indent(10)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, false, "group", "exposure"),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(distributionFIRSTandSTEM), String.format("<html>%sdistribution<br>%sFIRST and<br>%sSTEM</html>", this.indent(8), this.indent(9), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(openingFRCgroups), String.format("<html>%sopening<br>%sFRC<br>%sgroups</html>", this.indent(11), this.indent(15), this.indent(12)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(swordOfPeace), String.format("<html>%sSWORD<br>%sof<br>%sPEACE</html>", this.indent(12), this.indent(17), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false),
-                new MyButton(() -> this.hidePrevAndShowNextWindow(volunteeringWithDisplacedFamilies), String.format("<html>%svolunteering<br>%swith<br>%sdisplaced<br>%sfamilies</html>", this.indent(7), this.indent(15), this.indent(10), this.indent(13)), DEPUTY_MENU_BUTTONS_WIDTH, DEPUTY_MENU_BUTTONS_HEIGHT, DEPUTY_MENU_BUTTONS_X, 0, 0, false)
-        );
-        this.add(communityMenu);*/
-
-        /*this.stuffMenu = new MainMenu(630, 100, 1280, 10, 5, 7,
-                new MyButton(() -> {
-                    if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
-                    this.hidePrevAndShowNextMenu(this.mechanicsMenu);
-                }, "Mechanics", 150, 80, 557, 20, 24, true),
-                new MyButton(() -> {
-                    if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
-                    this.hidePrevAndShowNextMenu(this.electronicsMenu);
-                }, "Electronics", 150, 80, 662, 20, 21, true),
-                new MyButton(() -> {
-                    if (this.currentMenu == this.communityMenu) this.add(rightSidePanel);
-                    this.hidePrevAndShowNextMenu(this.programmingMenu);
-                }, "Programming", 150, 80, 767, 20, 11, true),
-                new MyButton(() -> {
-                    this.hidePrevAndShowNextMenu(this.communityMenu);
-                    this.remove(rightSidePanel);
-                }, "Community", 150, 80, 872, 20, 20, true)
-        );
-        this.add(stuffMenu);
-
-        ///////////////////
-        mechanicsMenu.setVisible(false);
-        electronicsMenu.setVisible(false);
-        programmingMenu.setVisible(false);
-        communityMenu.setVisible(false);*/
 
         this.setFocusable(true);
         this.setFocusTraversalKeysEnabled(false);
         this.addKeyListener(this);
 
         this.setVisible(true);
-    }
 
-    private void hidePrevAndShowNextMenu(MainMenu menu) {
-        this.currentWindow.setVisible(false);
-        this.add(mainWindow);
-        this.currentMenu.setVisible(false);
-        this.currentMenu = menu;
-        this.currentMenu.setVisible(true);
-    }
+        //set all data
+        this.mechanicsMenu = new Menu("Mechanics", 557, false,
+                new WindowContent("modeling.png", 1.2, "Modeling")
+        );
 
-    private void hidePrevAndShowNextWindow(Window window) {
-        this.currentWindow.setVisible(false);
-        this.remove(mainWindow);
-        this.currentWindow = window;
-        this.currentWindow.setVisible(true);
+        this.electronicsMenu = new Menu("Electronics", 662, false,
+                new WindowContent("mainElectronics.png", 1.15, "Main", "Electronics")
+        );
+
+        this.programmingMenu = new Menu("Programming", 767, false,
+                new WindowContent("swerveProgramming.png", 1.5, "swerve")
+        );
+
+        this.communityMenu = new Menu("Community", 872, false,
+                new WindowContent("javaCourse.png", "Java", "Course")
+        );
+
+        this.mainMenu = new MainMenu(
+                this.mechanicsMenu,
+                this.electronicsMenu,
+                this.programmingMenu,
+                this.communityMenu
+        );
+
+        this.add(this.mainMenu);
     }
 
     private ImageIcon scaleImageIcon(ImageIcon originalIcon, double scaleFactor) {
@@ -559,11 +319,11 @@ public class Screen extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-       switch (e.getKeyCode()) {
-           case VK_F4 -> System.exit(0);
-           case VK_A -> autoSwitchMode();
-           case VK_S -> stopAutoSwitch();
-       }
+        switch (e.getKeyCode()) {
+            case VK_F4 -> System.exit(0);
+            case VK_A -> autoSwitchMode();
+            case VK_S -> stopAutoSwitch();
+        }
     }
 
     @Override

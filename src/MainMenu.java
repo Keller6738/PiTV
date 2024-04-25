@@ -5,7 +5,8 @@ import static java.awt.FlowLayout.CENTER;
 
 
 public class MainMenu extends JPanel {
-     private final Menu[] menus;
+    private final Menu[] menus;
+    private Menu currentMenu = null;
 
     private static final int MENU_WIDTH = 630;
     private static final int MENU_HEIGHT = 100;
@@ -15,19 +16,32 @@ public class MainMenu extends JPanel {
     private static final int H_GAP = 5;
     private static final int V_GAP = 7;
 
-     public MainMenu(Menu... menus) {
-         this.menus = new Menu[menus.length];
+    public MainMenu(Menu... menus) {
+        this.setLayout(new FlowLayout(CENTER, H_GAP, V_GAP));
 
-         for (int i = 0; i < this.menus.length; i++) {
-             this.menus[i] = menus[i];
+        this.setBackground(Colors.BLUE.color);
+        this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
 
-             this.add(this.menus[i].getSelfButton());
-         }
-             this.setLayout(new FlowLayout(CENTER, H_GAP, V_GAP));
+        this.setBounds(MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT);
 
-             this.setBackground(Colors.BLUE.color);
-             this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
+        this.menus = new Menu[menus.length];
+        for (int i = 0; i < this.menus.length; i++) {
+            this.menus[i] = menus[i];
 
-             this.setBounds(MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT);
-     }
+            int finalI = i;
+            this.menus[i].setSelfButton(() -> run(finalI));
+
+            this.add(this.menus[i].getSelfButton());
+        }
+    }
+
+    private void run(int menuPlace) {
+        if (this.currentMenu != null) {
+            this.currentMenu.setVisible(false);
+            if (this.currentMenu.getCurrentWindow() != null) this.currentMenu.getCurrentWindow().setVisible(false);
+        }
+
+        this.menus[menuPlace].setVisible(true);
+        this.currentMenu = this.menus[menuPlace];
+    }
 }

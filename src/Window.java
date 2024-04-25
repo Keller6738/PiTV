@@ -8,8 +8,9 @@ import static java.awt.Image.SCALE_SMOOTH;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 public class Window extends JPanel {
-    private final MyButton selfButton;
-    private int selfButtonY = 0;
+    private MyButton selfButton;
+    private final int selfButtonY;
+
     private final JLabel imageLabel;
     private ImageIcon imageIcon;
 
@@ -23,13 +24,11 @@ public class Window extends JPanel {
     private static final int WINDOW_X = 340;
     private static final int WINDOW_Y = 120;
 
-    public Window(String fileName, String... buttonText) {
-        this(fileName, 1, buttonText);
+    public Window(int selfButtonY,String fileName, String... buttonText) {
+        this(selfButtonY, fileName, 1, buttonText);
     }
 
-    public Window(String fileName, double scaleFactor, String... buttonText) {
-        this.selfButton = new MyButton(() -> {}, SELF_BUTTON_WIDTH, SELF_BUTTON_HEIGHT, SELF_BUTTON_X, this.selfButtonY,false, buttonText);
-
+    public Window(int selfButtonY, String fileName, double scaleFactor, String... buttonText) {
         this.imageLabel = new JLabel();
         this.imageIcon = new ImageIcon(fileName);
         this.imageLabel.setIcon(imageIcon);
@@ -43,14 +42,16 @@ public class Window extends JPanel {
 
         if (isGif(imageIcon)) this.imageIcon = scaleGifIcon(this.imageIcon, scaleFactor);
         else this.imageIcon = scaleImageIcon(this.imageIcon, scaleFactor);
+
+        this.selfButtonY = selfButtonY;
+    }
+
+    public void setSelfButton(Runnable run, String... selfButtonText) {
+        this.selfButton = new MyButton(run, SELF_BUTTON_WIDTH, SELF_BUTTON_HEIGHT, SELF_BUTTON_X, this.selfButtonY,false, selfButtonText);
     }
 
     public MyButton getSelfButton() {
         return selfButton;
-    }
-
-    public void setSelfButtonY(int selfButtonY) {
-        this.selfButtonY = selfButtonY;
     }
 
     private ImageIcon scaleImageIcon(ImageIcon originalIcon, double scaleFactor) {
