@@ -12,16 +12,4 @@
 > - [***Korngut***](https://discord.com/users/1118946299560067142)
 > - [***I-No-oNe***](https://discord.com/users/1051897115447660697)
 > - [***Keller6738***](https://discord.com/users/1120983179281567774)
-```yml
-How to use?
-- press 1 to change gif
-- press 2 to change gif
-- press 3 to change gif
-- press 4 to change gif
-- press 5 to change gif
-- PRESS S TO TURN ON THE TIMING MODE
-- PRESS D TO TURN ON THE DEV MODE
-- PRESS A TO TURN ON THE AUTO SWITCH MODE
-- PRESS F4 TO STOP THE PROGRAM
- ```
 ### Good luck to everyone in their competitions🤖
