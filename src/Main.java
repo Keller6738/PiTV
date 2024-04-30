@@ -1,23 +1,18 @@
-import javax.swing.*;
-/**
- * press 1 to change gif
- * press 2 to change gif
- * press 3 to change gif
- * press 4 to change gif
- * press 5 to change gif
- * PRESS S TO TURN ON THE TIMING MODE
- * PRESS D TO TURN ON THE DEV MODE
- * PRESS A TO TURN ON THE AUTO SWITCH MODE
- * PRESS F4 TO STOP THE PROGRAM
- */
+import Screens.Screen;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("The code has been started!");
-        System.out.println("Made by Noam, Ori, and Itay from Excalibur #6738.");
+        System.out.println("Made by Itay and Noam from Excalibur #6738.");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("The code has been stopped.");
-            System.out.println("Made by Noam, Ori, and Itay from Excalibur #6738.");
+            System.out.println("Made by Itay and Noam from Excalibur #6738.");
         }));
-        SwingUtilities.invokeLater(PiTV::new);
+        new Screen();
     }
+    /*TODO:
+    1.Finish the Gui
+    2.Fix images(make them again)
+    3.Change Images names
+     */
 }
