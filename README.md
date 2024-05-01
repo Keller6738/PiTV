@@ -2,7 +2,7 @@
 ### *By Korngut, Keller6738 and I-No-oNe 🚀*
 
 ## What is PiTV ❔
-> PiTV is a java program to display [**@Excalibur**](https://github.com/ExcaliburFRC) CAD in our pit station on our ***FRC competition.***
+> PiTV is a java program to display [**@Excalibur**](https://github.com/ExcaliburFRC) data about the robot and the team in our pit station on our ***FRC competition.***
 ## *If you liked the project and want to help us please contact someone from here:*
 ## Github:
 >  - [***Korngut***](https://github.com/Korngut)
