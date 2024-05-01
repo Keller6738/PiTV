@@ -11,7 +11,7 @@ public class Main {
         System.out.println("Made by Itay and Noam from Excalibur #6738.");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("The code has been stopped.");
-            System.out.println("Made by Itay Keller and Noam Novoselsky from Excalibur #6738.");
+            System.out.println("Made by Itay Keller and Noam Novoselskey from Excalibur #6738.");
         }));
         new Screen();
     }
