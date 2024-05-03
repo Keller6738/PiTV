@@ -29,7 +29,7 @@ public class Window extends JPanel {
     private static final int WINDOW_X = 340;
     private static final int WINDOW_Y = 120;
 
-    public Window(int selfButtonY,String fileName, String... buttonText) {
+    public Window(int selfButtonY, String fileName, String... buttonText) {
         this(selfButtonY, fileName, 1, buttonText);
     }
 
@@ -52,7 +52,7 @@ public class Window extends JPanel {
     }
 
     public void setSelfButton(Runnable run, String... selfButtonText) {
-        this.selfButton = new MyButton(run, SELF_BUTTON_WIDTH, SELF_BUTTON_HEIGHT, SELF_BUTTON_X, this.selfButtonY,false, selfButtonText);
+        this.selfButton = new MyButton(run, SELF_BUTTON_WIDTH, SELF_BUTTON_HEIGHT, SELF_BUTTON_X, this.selfButtonY, false, selfButtonText);
     }
 
     public MyButton getSelfButton() {

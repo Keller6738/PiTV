@@ -1,7 +1,6 @@
 package Screens;
 
-import Utils.Colors;
-import Utils.WindowContent;
+import Utils.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,8 +17,7 @@ import java.util.TimerTask;
 import static java.awt.Font.BOLD;
 import static java.awt.Image.SCALE_SMOOTH;
 import static java.awt.event.KeyEvent.*;
-import static javax.swing.SwingConstants.CENTER;
-import static javax.swing.SwingConstants.RIGHT;
+import static javax.swing.SwingConstants.*;
 
 public class Screen extends JFrame implements KeyListener {
 
@@ -46,10 +44,10 @@ public class Screen extends JFrame implements KeyListener {
     //data
     private final MainMenu mainMenu;
 
-    private final Screens.Menu mechanicsMenu;
-    private final Screens.Menu electronicsMenu;
-    private final Screens.Menu programmingMenu;
-    private final Screens.Menu communityMenu;
+    private final DeputyMenu mechanicsMenu;
+    private final DeputyMenu electronicsMenu;
+    private final DeputyMenu programmingMenu;
+    private final DeputyMenu communityMenu;
 
     public Screen() {
         //design panels
@@ -141,30 +139,34 @@ public class Screen extends JFrame implements KeyListener {
 
         this.setVisible(true);
 
-        this.mechanicsMenu = new Screens.Menu("Mechanics", 557, false,
+        this.mechanicsMenu = new DeputyMenu("Mechanics", false,
                 new WindowContent("src/Images/mechanics/modeling.png", 1.2, "Modeling")
         );
 
-        this.electronicsMenu = new Screens.Menu("Electronics", 662, false,
+        this.electronicsMenu = new DeputyMenu("Electronics", false,
                 new WindowContent("src/Images/electronics/mainElectronics.png", 1.15, "Main", "Electronics")
         );
 
-        this.programmingMenu = new Screens.Menu("Programming", 767, false,
+        this.programmingMenu = new DeputyMenu("Programming", false,
                 new WindowContent("src/Images/programming/swerveProgramming.png", 1.5, "swerve")
         );
 
-        this.communityMenu = new Menu("Community", 872, false,
+        this.communityMenu = new DeputyMenu("Community", false,
                 new WindowContent("src/Images/community/javaCourse.png", "Java", "Course")
         );
 
         this.mainMenu = new MainMenu(
-                this.mechanicsMenu,
-                this.electronicsMenu,
-                this.programmingMenu,
-                this.communityMenu
+                new DeputyMenuContent("Mechanics", false,
+                        new WindowContent("src/Images/mechanics/modeling.png", 1.2, "Modeling")),
+                new DeputyMenuContent("Electronics", false,
+                        new WindowContent("src/Images/electronics/mainElectronics.png", 1.15, "Main", "Electronics")),
+                new DeputyMenuContent("Programming", false,
+                        new WindowContent("src/Images/programming/swerveProgramming.png", 1.5, "swerve")),
+                new DeputyMenuContent("Community", false,
+                        new WindowContent("src/Images/community/javaCourse.png", "Java", "Course"))
         );
 
-        this.add(this.mainMenu);
+        this.add(mainMenu);
     }
 
     private ImageIcon scaleImageIcon(ImageIcon originalIcon, double scaleFactor) {
