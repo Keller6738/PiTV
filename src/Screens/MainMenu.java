@@ -1,39 +1,34 @@
 package Screens;
 
-import Utils.Colors;
-
-import javax.swing.*;
-import java.awt.*;
-
-import static java.awt.FlowLayout.CENTER;
+import Utils.*;
 
 
-public class MainMenu extends JPanel {
-    private final Menu[] menus;
-    private Menu currentMenu = null;
+public class MainMenu extends BasicMenu {
+    private final DeputyMenu[] menus;
+    private DeputyMenu currentMenu = null;
 
-    private static final int MENU_WIDTH = 630;
-    private static final int MENU_HEIGHT = 100;
-    private static final int MENU_X = 1280;
-    private static final int MENU_Y = 10;
+    private static final int MAIN_MENU_X = 1280;
+    private static final int MAIN_MENU_Y = 10;
+    private static final int MAIN_MENU_WIDTH = 630;
+    private static final int MAIN_MENU_HEIGHT = 100;
 
     private static final int H_GAP = 5;
     private static final int V_GAP = 7;
 
-    public MainMenu(Menu... menus) {
-        this.setLayout(new FlowLayout(CENTER, H_GAP, V_GAP));
+    public MainMenu(DeputyMenuContent... menuContents) {
+        super(MAIN_MENU_X, MAIN_MENU_Y, MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT, H_GAP, V_GAP);
 
-        this.setBackground(Colors.BLUE.color);
-        this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
-
-        this.setBounds(MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT);
-
-        this.menus = new Menu[menus.length];
+        WindowContent[] windowContents;
+        this.menus = new DeputyMenu[menuContents.length];
         for (int i = 0; i < this.menus.length; i++) {
-            this.menus[i] = menus[i];
+            windowContents = new WindowContent[menuContents[i].getWindowContentsLength()];
+            for (int j = 0; j < windowContents.length; j++) {
+                windowContents[j] = menuContents[i].getWindowContent(j);
+            }
+            this.menus[i] = new DeputyMenu(menuContents[i].getButtonText(), menuContents[i].isLonger(), windowContents);
 
             int finalI = i;
-            this.menus[i].setSelfButton(() -> run(finalI));
+            this.menus[i].setSelfButton(() -> run(finalI), 557 + 115 * i);
 
             this.add(this.menus[i].getSelfButton());
         }
