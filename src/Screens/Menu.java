@@ -13,10 +13,12 @@ public class Menu extends JPanel {
     private final String selfButtonText;
     private final int selfButtonX;
 
+    private final boolean isLonger;
+
     private final Window[] windows;
     private Window currentWindow = null;
 
-    private static final int SELF_BUTTON_Y = 20;
+    private static final int SELF_BUTTON_Y = 15;
     private static final int SELF_BUTTON_WIDTH = 150;
     private static final int SELF_BUTTON_HEIGHT = 80;
 
@@ -36,7 +38,9 @@ public class Menu extends JPanel {
         this.setBackground(Colors.BLUE.color);
         this.setBorder(BorderFactory.createLineBorder(Colors.YELLOW.color, 3, true));
 
-        this.setBounds(MENU_X, MENU_Y, MENU_WIDTH, isLonger ? MENU_HEIGHT + 400 : MENU_HEIGHT);
+
+        this.isLonger = isLonger;
+        this.setBounds(MENU_X, MENU_Y, MENU_WIDTH, this.isLonger ? MENU_HEIGHT + 400 : MENU_HEIGHT);
 
         this.windows = new Window[windowsContent.length];
         for (int i = 0; i < this.windows.length; i++) {
@@ -56,8 +60,8 @@ public class Menu extends JPanel {
         return currentWindow;
     }
 
-    public MyButton getSelfButton() {
-        return selfButton;
+    public JPanel getSelfButton() {
+        return this.selfButton;
     }
 
     public void setSelfButton(Runnable run) {
