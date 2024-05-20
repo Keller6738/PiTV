@@ -1,6 +1,4 @@
-package Screens;
-
-import Utils.Colors;
+package Utils;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package Screens;
 
-import Screens.MyButton;
+import Utils.MyButton;
 import Utils.Colors;
 
 import javax.imageio.ImageIO;

@@ -1,6 +1,7 @@
 package Screens;
 
 import Utils.Colors;
+import Utils.MyButton;
 import Utils.WindowContent;
 
 import javax.swing.*;
