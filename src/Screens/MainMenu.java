@@ -16,7 +16,7 @@ public class MainMenu extends JPanel {
     private static final int MENU_HEIGHT = 100;
     private static final int MENU_X = 1280;
     private static final int MENU_Y = 10;
-
+//
     private static final int H_GAP = 5;
     private static final int V_GAP = 7;
 
