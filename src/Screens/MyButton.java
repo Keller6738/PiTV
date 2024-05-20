@@ -60,10 +60,6 @@ public class MyButton extends JPanel implements MouseListener {
         return isRunning;
     }
 
-    public String getText() {
-        return this.textLabels[0].getText();
-    }
-
     @Override
     public void mouseClicked(MouseEvent e) {
         this.run.run();
